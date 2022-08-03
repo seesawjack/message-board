@@ -8,6 +8,7 @@
 	<h2>Message List</h2>
 	<ul>
 		<li v-for="(item,index) in outputValue" :key="index">
+			<p>{{item.date}}</p>
 			<span @click="isDone(item)" :class="{done:item.done}">{{item.finalValue}}</span>
 			<button  @click="removeList(index)">Remove</button>
 		</li>
@@ -22,6 +23,7 @@ export default {
 			return{
 				enterValue:'',
 				outputValue:[],	
+				date:''
 			}
 		},
 		methods:{
@@ -30,9 +32,12 @@ export default {
 					alert('請輸入內容') 
 					return;
 				} 
+				const week = ['日','一','二','三','四','五','六']
+				this.date = `${new Date().getFullYear()}/${new Date().getMonth()+1}/${new Date().getDate()}(${week[new Date().getDay()]}) ${new Date().getHours()}:${new Date().getMinutes()}`;
 				this.outputValue.push({
 					done:false,
-					finalValue:this.enterValue
+					finalValue:this.enterValue,
+					date:this.date
 				});
 				sessionStorage.setItem('todoList',JSON.stringify(this.outputValue));
 				this.enterValue= '';
