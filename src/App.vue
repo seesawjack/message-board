@@ -9,7 +9,8 @@
 	<ul>
 		<li v-for="(item,index) in outputValue" :key="index">
 			<p>{{item.date}}</p>
-			<span @click="isDone(item)" :class="{done:item.done}">{{item.finalValue}}</span>
+			<span @click="isDone(item)" :class="{done:item.done}" :contenteditable="item.edit">{{item.finalValue}}</span>
+			<button @click="isEditBtn(item)">Edit</button>
 			<button  @click="removeList(index)">Remove</button>
 		</li>
 	</ul>
@@ -23,7 +24,14 @@ export default {
 			return{
 				enterValue:'',
 				outputValue:[],	
-				date:''
+				date:'',
+				isEdit:false,
+
+			}
+		},
+		computed:{
+			isContentEdit(){
+				return this.isEdit? 'contenteditable= true':'';
 			}
 		},
 		methods:{
@@ -37,7 +45,8 @@ export default {
 				this.outputValue.push({
 					done:false,
 					finalValue:this.enterValue,
-					date:this.date
+					date:this.date,
+					edit:this.isEdit
 				});
 				sessionStorage.setItem('todoList',JSON.stringify(this.outputValue));
 				this.enterValue= '';
@@ -48,7 +57,12 @@ export default {
 			isDone(item){
 				item.done=!item.done;
 				sessionStorage.setItem('todoList',JSON.stringify(this.outputValue));
+				
+			},
+			isEditBtn(item){
+				item.edit = !item.edit;
 			}
+
 		},
 		beforeMount(){
 			if(sessionStorage.getItem('todoList')){
@@ -61,5 +75,11 @@ export default {
 </script>
 
 <style>
-
+span{
+	margin-right: 10px;
+}
+span.done{
+	text-decoration-line: line-through;
+	color: gray;
+}
 </style>
