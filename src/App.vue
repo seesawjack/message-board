@@ -55,12 +55,14 @@ export default {
 				this.outputValue.splice(index,1)
 			},
 			isDone(item){
-				item.done=!item.done;
-				sessionStorage.setItem('todoList',JSON.stringify(this.outputValue));
-				
+				if(!item.edit){
+					item.done=!item.done;
+					sessionStorage.setItem('todoList',JSON.stringify(this.outputValue));
+				}
 			},
 			isEditBtn(item){
 				item.edit = !item.edit;
+				console.log(item.enterValue)
 			}
 
 		},
