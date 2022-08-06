@@ -10,8 +10,8 @@
 		<li v-for="(item,index) in outputValue" :key="index">
 			<p>{{item.date}}</p>
 			<span @click="isDone(item)" :class="{done:item.done}" :contenteditable="item.edit">{{item.finalValue}}</span>
-			<button @click="isEditBtn(item)">Edit</button>
-			<button  @click="removeList(index)">Remove</button>
+			<button @click="isEditBtn(item)">{{item.edit?'編輯完成':'可編輯'}}</button>
+			<button  @click="removeList(index)">刪除</button>
 		</li>
 	</ul>
 	<h4 v-if="outputValue.length == 0 ">Empty list.</h4>
@@ -26,7 +26,6 @@ export default {
 				outputValue:[],	
 				date:'',
 				isEdit:false,
-
 			}
 		},
 		computed:{
@@ -62,7 +61,7 @@ export default {
 			},
 			isEditBtn(item){
 				item.edit = !item.edit;
-				console.log(item.enterValue)
+				console.log(this.finalValue)
 			}
 
 		},
