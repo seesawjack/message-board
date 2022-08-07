@@ -1,73 +1,53 @@
 <template>
-  <h1>Message Board</h1>
-	<form @submit.prevent="addList()">
-		<label>New Message </label>
-		<input type="text" v-model="enterValue">
-		<button>Add Message</button>
-	</form>
-	<h2>Message List</h2>
+	<the-header></the-header>
+	<message-form ></message-form>
 	<ul>
-		<li v-for="(item,index) in outputValue" :key="index">
-			<p>{{item.date}}</p>
-			<span @click="isDone(item)" :class="{done:item.done}" :contenteditable="item.edit">{{item.finalValue}}</span>
-			<button @click="isEditBtn(item)">{{item.edit?'編輯完成':'可編輯'}}</button>
-			<button  @click="removeList(index)">刪除</button>
-		</li>
+		<message-card></message-card>
 	</ul>
-	<h4 v-if="outputValue.length == 0 ">Empty list.</h4>
 </template>
 
 <script>
+import MessageCard from './components/UI/MessageCard.vue';
+import TheHeader from './components/layouts/TheHeader.vue';
+import MessageForm from './components/AddMessage/MessageForm.vue'
+
 export default {
 		name: 'App',
+		components:{
+			MessageCard,
+			TheHeader,
+			MessageForm
+		},
 		data(){
 			return{
-				enterValue:'',
-				outputValue:[],	
-				date:'',
-				isEdit:false,
+				storedResources:[],
 			}
 		},
-		computed:{
-			isContentEdit(){
-				return this.isEdit? 'contenteditable= true':'';
+		provide(){
+			return{
+				addMessage:this.addMessage,
+				resourse:this.storedResources,
+				deleteMessage:this.deleteMessage
 			}
 		},
 		methods:{
-			addList(){
-				if(!this.enterValue){
-					alert('請輸入內容') 
-					return;
-				} 
+			addMessage(title){
 				const week = ['日','一','二','三','四','五','六']
-				this.date = `${new Date().getFullYear()}/${new Date().getMonth()+1}/${new Date().getDate()}(${week[new Date().getDay()]}) ${new Date().getHours()}:${new Date().getMinutes()}`;
-				this.outputValue.push({
-					done:false,
-					finalValue:this.enterValue,
-					date:this.date,
-					edit:this.isEdit
-				});
-				sessionStorage.setItem('todoList',JSON.stringify(this.outputValue));
-				this.enterValue= '';
-			},
-			removeList(index){
-				this.outputValue.splice(index,1)
-			},
-			isDone(item){
-				if(!item.edit){
-					item.done=!item.done;
-					sessionStorage.setItem('todoList',JSON.stringify(this.outputValue));
-				}
-			},
-			isEditBtn(item){
-				item.edit = !item.edit;
-				console.log(this.finalValue)
-			}
+				const time = `${new Date().getFullYear()}/
+				${new Date().getMonth()+1}/
+				${new Date().getDate()}(${week[new Date().getDay()]}) 
+				${new Date().getHours()}:${new Date().getMinutes()}`;
 
-		},
-		beforeMount(){
-			if(sessionStorage.getItem('todoList')){
-				this.outputValue = JSON.parse(sessionStorage.getItem('todoList'))
+				const newResource = {
+					id:new Date().toISOString(),
+					time:time,
+					title:title,
+				}
+				this.storedResources.push(newResource);
+				sessionStorage.setItem('message',JSON.stringify(this.storedResources));
+			},
+			deleteMessage(index){
+				this.storedResources.splice(index,1)
 			}
 		}
 }
@@ -76,11 +56,22 @@ export default {
 </script>
 
 <style>
-span{
-	margin-right: 10px;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+  box-sizing: border-box;
 }
-span.done{
-	text-decoration-line: line-through;
-	color: gray;
+
+html {
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: rgb(52, 52, 52);
+}   
+
+ul{
+	list-style: none;
 }
 </style>
