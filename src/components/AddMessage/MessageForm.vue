@@ -1,16 +1,23 @@
 <template>
     <form @submit.prevent="submitData()">
-		<input type="text" ref="titleInput">
-		<button>輸入留言</button>
+		<input type="text" ref="titleInput" :value="editValue">
+		<button :class="editValue? 'edit':''">{{editValue? '編輯完成':'輸入留言'}}</button>
 	</form>
 </template>
 
 <script>
 export default {
-    inject:['addMessage'],
+    props:['editValue'],
+    inject:['addMessage','editMessage'],
     methods:{
         submitData(){
         const enterMessage = this.$refs.titleInput.value;
+
+        if(this.editValue){
+            this.editMessage(enterMessage)
+            this.$refs.titleInput.value = '';
+            return;
+        }
 
         if(enterMessage.trim() === ''){
            console.log('此為空值')
@@ -41,6 +48,9 @@ export default {
             border: none;
             font-size: 1.5rem;
             padding: 10px;
+            &.edit{
+                background-color: rgb(227, 61, 61);
+            }
         }
     }
 </style>

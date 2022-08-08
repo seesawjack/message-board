@@ -1,6 +1,6 @@
 <template>
 	<the-header></the-header>
-	<message-form ></message-form>
+	<message-form :editValue="editContent"></message-form>
 	<ul>
 		<message-card></message-card>
 	</ul>
@@ -21,13 +21,17 @@ export default {
 		data(){
 			return{
 				storedResources:[],
+				editContent:'',
+				editindex:0,
 			}
 		},
 		provide(){
 			return{
 				addMessage:this.addMessage,
 				resourse:this.storedResources,
-				deleteMessage:this.deleteMessage
+				deleteMessage:this.deleteMessage,
+				getEditMessage:this.getEditMessage,
+				editMessage:this.editMessage
 			}
 		},
 		methods:{
@@ -43,12 +47,25 @@ export default {
 					time:time,
 					title:title,
 				}
+				if(this.editContent){
+					console.log('app')
+				}
 				this.storedResources.push(newResource);
 				sessionStorage.setItem('message',JSON.stringify(this.storedResources));
 			},
 			deleteMessage(index){
 				this.storedResources.splice(index,1)
+			},
+			getEditMessage(index){
+				this.editContent= this.storedResources[index].title
+				this.editIndex = index
+			},
+			editMessage(editTitle){
+				this.storedResources[this.editIndex].title = editTitle;
+				this.editContent = ''
+				this.editindex = 0
 			}
+
 		}
 }
 

@@ -7,7 +7,7 @@
             <div class="card-body">
                 <span>{{item.title}}</span>
             </div>
-            <button>編輯</button>
+            <button @click="editM(index)">編輯</button>
 			<button @click="deleteM(index)">刪除</button>
 		</li>
         <h2 v-if="resourse.length === 0">此處沒有留言...</h2>
@@ -15,19 +15,15 @@
 
 <script>
 export default {
-    inject:['resourse','deleteMessage'],
+    inject:['resourse','deleteMessage','getEditMessage'],
     methods:{
         deleteM(index){
             this.deleteMessage(index)
-        }
-    },
-    beforeMount(){
-        // if(sessionStorage.getItem('message')){
-        //     console.log(JSON.parse(sessionStorage.getItem('message')))
-        //     this.resourse = JSON.parse(sessionStorage.getItem('message'))
-          
-        // }
-	}
+        },
+        editM(index){
+            this.getEditMessage(index)
+        },
+    }
 }
 </script>
 
