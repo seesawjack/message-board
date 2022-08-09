@@ -1,28 +1,24 @@
 <template>
 	<the-header></the-header>
-	<message-form :editValue="editContent"></message-form>
-	<ul>
-		<message-card></message-card>
-	</ul>
+	<router-view></router-view>
 </template>
 
 <script>
-import MessageCard from './components/UI/MessageCard.vue';
+// import MessageCard from './components/UI/MessageCard.vue';
+// import MessageForm from './components/AddMessage/MessageForm.vue'
 import TheHeader from './components/layouts/TheHeader.vue';
-import MessageForm from './components/AddMessage/MessageForm.vue'
+
 
 export default {
 		name: 'App',
 		components:{
-			MessageCard,
 			TheHeader,
-			MessageForm
 		},
 		data(){
 			return{
 				storedResources:[],
 				editContent:'',
-				editindex:0,
+				editIndex:0,
 			}
 		},
 		provide(){
@@ -46,10 +42,9 @@ export default {
 					id:new Date().toISOString(),
 					time:time,
 					title:title,
+					isEdit:true
 				}
-				if(this.editContent){
-					console.log('app')
-				}
+
 				this.storedResources.push(newResource);
 				sessionStorage.setItem('message',JSON.stringify(this.storedResources));
 			},
@@ -62,8 +57,9 @@ export default {
 			},
 			editMessage(editTitle){
 				this.storedResources[this.editIndex].title = editTitle;
+				this.storedResources[this.editIndex].isEdit = true;
 				this.editContent = ''
-				this.editindex = 0
+				this.editIndex = 0
 			}
 
 		}

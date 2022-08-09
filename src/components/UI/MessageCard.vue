@@ -7,8 +7,8 @@
             <div class="card-body">
                 <span>{{item.title}}</span>
             </div>
-            <button @click="editM(index)">編輯</button>
-			<button @click="deleteM(index)">刪除</button>
+            <button @click="editM(index,item)">編輯</button>
+			<button v-if="item.isEdit" @click="deleteM(index)">刪除</button>
 		</li>
         <h2 v-if="resourse.length === 0">此處沒有留言...</h2>
 </template>
@@ -20,8 +20,9 @@ export default {
         deleteM(index){
             this.deleteMessage(index)
         },
-        editM(index){
+        editM(index,item){
             this.getEditMessage(index)
+            item.isEdit = false
         },
     }
 }
