@@ -1,11 +1,9 @@
 <template>
 	<the-header></the-header>
-	<router-view></router-view>
+	<router-view :firstEdit="editContent"></router-view>
 </template>
 
 <script>
-// import MessageCard from './components/UI/MessageCard.vue';
-// import MessageForm from './components/AddMessage/MessageForm.vue'
 import TheHeader from './components/layouts/TheHeader.vue';
 
 
@@ -27,7 +25,8 @@ export default {
 				resourse:this.storedResources,
 				deleteMessage:this.deleteMessage,
 				getEditMessage:this.getEditMessage,
-				editMessage:this.editMessage
+				editMessage:this.editMessage,
+				isEditValue :this.editContent
 			}
 		},
 		methods:{
@@ -54,12 +53,14 @@ export default {
 			getEditMessage(index){
 				this.editContent= this.storedResources[index].title
 				this.editIndex = index
+				
 			},
 			editMessage(editTitle){
 				this.storedResources[this.editIndex].title = editTitle;
 				this.storedResources[this.editIndex].isEdit = true;
 				this.editContent = ''
 				this.editIndex = 0
+				console.log('編輯')
 			}
 
 		}

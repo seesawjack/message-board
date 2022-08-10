@@ -10,7 +10,11 @@
             <button @click="editM(index,item)">編輯</button>
 			<button v-if="item.isEdit" @click="deleteM(index)">刪除</button>
 		</li>
-        <h2 v-if="resourse.length === 0">此處沒有留言...</h2>
+        <div class="return-btn" v-if="resourse.length === 0">
+            <h2 >此處沒有留言...</h2>
+            <router-link to="index">返回</router-link>
+        </div>
+        
 </template>
 
 <script>
@@ -52,7 +56,19 @@ h2{
     color: #fff;
     text-align: center;
 }
-
+.return-btn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    a{
+        color: #fff;
+        text-decoration: none;
+        background-color: rgb(38, 152, 152);
+        padding: 10px 40px;
+        border-radius: 25px;
+    }
+    
+}
 
 
 </style>

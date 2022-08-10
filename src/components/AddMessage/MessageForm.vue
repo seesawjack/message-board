@@ -1,4 +1,17 @@
 <template>
+ <base-dialog 
+    v-if="inputIsInvalid"
+    title="Invalid Input"
+    @close="confirmError"
+    >
+      <template #default>
+        <p>請至少輸入請至少輸入一個有效值</p>
+        <p>請確認您有輸入內容</p>
+      </template>
+      <template #actions>
+        <button>okay</button>
+      </template>
+    </base-dialog>
     <form @submit.prevent="submitData()">
 		<input type="text" ref="titleInput" :value="editValue">
 		<button :class="editValue? 'edit':''">{{editValue? '編輯完成':'輸入留言'}}</button>
@@ -6,9 +19,13 @@
 </template>
 
 <script>
+import BaseDialog from '../UI/BaseDialog.vue'
 export default {
     props:['editValue'],
     inject:['addMessage','editMessage'],
+    components:[
+        BaseDialog
+    ],
     methods:{
         submitData(){
         const enterMessage = this.$refs.titleInput.value;
@@ -16,6 +33,7 @@ export default {
         if(this.editValue){
             this.editMessage(enterMessage)
             this.$refs.titleInput.value = '';
+            console.log('編輯')
             return;
         }
 

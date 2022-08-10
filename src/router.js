@@ -9,6 +9,9 @@ const router = createRouter({
     history:createWebHistory(),
     routes:[
         {
+          path:'/',redirect:'/index'  
+        },
+        {
             name:'index',
             path:'/index',
             meta:{needsAuth:true},

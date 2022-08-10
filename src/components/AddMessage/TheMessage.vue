@@ -1,5 +1,5 @@
 <template>
-    <message-form :editValue="editContent"></message-form>
+    <message-form :editValue="firstEdit"></message-form>
     <ul>
         <message-card></message-card>
     </ul>
@@ -11,7 +11,7 @@ import MessageForm from './MessageForm.vue'
 import MessageCard from '../UI/MessageCard.vue'
 
 export default {
-    props:['editValue'],
+    props:['firstEdit'],
    components:{
     MessageForm,
     MessageCard,
