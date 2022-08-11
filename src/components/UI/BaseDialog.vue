@@ -12,7 +12,7 @@
         </section>
         <menu>
             <slot name="actions">
-                <button>close</button>
+                <button @click="$emit('close')">okay</button>
             </slot>
         </menu>
     </dialog>
