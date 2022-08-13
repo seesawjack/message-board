@@ -1,0 +1,61 @@
+<template>
+    <ul>
+        <hall-card
+        v-for="message in messageGroup"
+        :key="message.id"
+        :altName="message.name.english"
+        :groupName="message.name.chinese"
+        :imgLink="message.img"
+        ></hall-card>
+    </ul>
+</template>
+
+<script>
+import HallCard from '../UI/HallCard.vue'
+export default {
+    components:{
+        HallCard
+    },
+    data(){
+        return{
+            messageGroup:[
+                {
+                    id:'g1',
+                    name:{
+                        english:'gossiping',
+                        chinese:'八卦版'
+                    },
+                    img:`gossiping_bn.png`
+                },
+                {
+                    id:'g2',
+                    name:{
+                        english:'c_chat',
+                        chinese:'西洽版'
+                    },
+                    img:'cchat_bn.png'
+                },
+                {
+                    id:'g3',
+                    name:{
+                        english:'movie',
+                        chinese:'電影版'
+                    },
+                    img:'movie_bn.png'
+                }
+            ]
+        }
+    }
+}
+</script>
+
+<style scoped lang="scss">
+ul{
+    max-width: 1024px;
+    margin: 50px auto;
+    padding: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+</style>
