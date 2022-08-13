@@ -2,7 +2,8 @@ import { createRouter,createWebHistory } from 'vue-router';
 
 // import MessageForm from './components/AddMessage/MessageForm.vue';
 import TheIndex from './components/layouts/TheIndex.vue';
-import TheMessage from './components/AddMessage/TheMessage.vue'
+import TheMessage from './components/AddMessage/TheMessage.vue';
+import NotFound from './components/layouts/NotFound.vue'
 
 
 const router = createRouter({
@@ -26,7 +27,10 @@ const router = createRouter({
             components:{
                 default:TheMessage
             }
-        }, 
+        },
+        {
+            path:'/:notFound(.*)',component:NotFound
+        } 
     ]
 })
 
