@@ -12,7 +12,7 @@
 		</li>
         <div class="return-btn" v-if="resourse.length === 0">
             <h2 >此處沒有留言...</h2>
-            <router-link to="index">返回</router-link>
+            <router-link to="../index">返回</router-link>
         </div>
         
 </template>

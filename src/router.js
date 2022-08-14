@@ -1,10 +1,10 @@
 import { createRouter,createWebHistory } from 'vue-router';
 
 // import MessageForm from './components/AddMessage/MessageForm.vue';
-import TheIndex from './components/layouts/TheIndex.vue';
-import TheMessage from './components/AddMessage/TheMessage.vue';
-import NotFound from './components/layouts/NotFound.vue';
-import MessageHall from './components/layouts/MessageHall.vue'
+import TheIndex from './page/IndexPage.vue';
+import TheMessage from './page/MessagePage.vue';
+import NotFound from './page/NotFound.vue';
+import MessageHall from './page/MessageHall.vue';
 
 
 const router = createRouter({
@@ -25,18 +25,14 @@ const router = createRouter({
             name:'hall',
             path:'/hall',
             meta:{needsAuth:true},
-            components:{
-                default:MessageHall
-            }
-        }, 
-        {
-            name:'board',
-            path:'/board',
-            meta:{needsAuth:true},
-            components:{
-                default:TheMessage
-            }
+            component:MessageHall,
         },
+        {
+            name:'hall-single',
+            path:'/hall/:groupId',
+            meta:{needsAuth:true},
+            component:TheMessage
+        }, 
         {
             path:'/:notFound(.*)',component:NotFound
         } 

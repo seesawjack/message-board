@@ -1,9 +1,10 @@
 <template>
-    <h1>歡迎來到留言板</h1>
+    <h1>沒有此頁面內容....</h1>
     <div class="center-link">
-        <router-link to="board">點我進入</router-link>
-    </div>  
+        <router-link to="../index">點我返回</router-link>
+    </div>
 </template>
+
 
 <style scoped>
 h1{

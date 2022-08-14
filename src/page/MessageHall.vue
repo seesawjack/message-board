@@ -3,15 +3,16 @@
         <hall-card
         v-for="message in messageGroup"
         :key="message.id"
-        :altName="message.name.english"
-        :groupName="message.name.chinese"
+        :id="message.id"
+        :alt-name="message.name.english"
+        :group-name="message.name.chinese"
         :imgLink="message.img"
         ></hall-card>
     </ul>
 </template>
 
 <script>
-import HallCard from '../UI/HallCard.vue'
+import HallCard from '../components/HallMessage/HallCard.vue'
 export default {
     components:{
         HallCard
