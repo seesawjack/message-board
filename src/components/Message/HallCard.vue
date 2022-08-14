@@ -4,20 +4,20 @@
         <div class="message-group">
             <img :src="require(`@/assets/images/${imgLink}`)" :alt="altName" :title="altName">
             <p>{{groupName}}</p>
-            <router-link :to="`hall/${this.id}`">點我進入</router-link>
+            <router-link :to="boardLink">點我進入</router-link>
         </div>
     </li>
 </template>
 
 <script>
+
 export default {
     props:['groupName','altName','imgLink','id'],
     computed:{
-        teamMembersLink(){
-        // return '/teams/'+this.id
+        boardLink(){
         return {
-            name:'group',
-            params:{groupId:this.id}
+            name:'board',
+            params:{boardId:this.id}
             }
         }
     }

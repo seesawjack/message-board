@@ -1,27 +1,25 @@
 <template>
     <base-dialog 
     v-if="inputIsInvalid"
-    title="Invalid Input"
+    title="請輸入內容"
     @close="confirmError"
     >
       <template #default>
-        <p>請至少輸入請至少輸入一個有效值</p>
-        <p>請確認您有輸入內容</p>
+        <p>請輸入您想留言的內容</p>
       </template>
       <template #actions></template>
     </base-dialog>
     <!-- 表單輸入 -->
     <form @submit.prevent="submitData()">
-		<input type="text" ref="inputMsg" :value="editMsg">
-		<button :class="editMsg? 'edit':''">{{editMsg? '編輯完成':'輸入留言'}}</button>
+		<input type="text" ref="inputMsg">
+		<button>輸入留言</button>
 	</form>
 </template>
 
 <script>
 import BaseDialog from '../UI/BaseDialog.vue'
 export default {
-    props:['editMsg'],
-    inject:['addMessage','editMessage'],
+    inject:['addMessage'],
     components:{
         BaseDialog
     },
@@ -33,15 +31,7 @@ export default {
     methods:{
         submitData(){
         const enterMessage = this.$refs.inputMsg.value;
-        
-        if(this.editMsg){
-            this.editMessage(enterMessage)
-            this.$refs.inputMsg.value = '';
-            console.log('編輯')
-            return;
-        }
-
-        if(enterMessage.trim() === ''){
+                if(enterMessage.trim() === ''){
           this.inputIsInvalid = true
            return; 
         }

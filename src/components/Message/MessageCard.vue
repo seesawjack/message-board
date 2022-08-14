@@ -1,33 +1,58 @@
 <template>
-		<li v-for="(item,index) in resourse" :key="index">
-			<div class="card-header">
-                <p class="name">名稱：無名氏</p>
-                <p>發文時間：{{item.time}}</p>
-            </div>
-            <div class="card-body">
-                <span>{{item.content}}</span>
-            </div>
-            <button @click="editM(index,item)">編輯</button>
-			<button v-if="item.isEdit" @click="deleteM(index)">刪除</button>
-		</li>
-        <div class="return-btn" v-if="resourse.length === 0">
-            <h2 >此處沒有留言...</h2>
-            <router-link to="../index">返回</router-link>
+    <base-dialog 
+        v-if="isShow"
+        title="修改內容"
+        @close="check"
+        >
+        <template #default>
+            <textarea  cols="30" rows="10" v-model="editingMsg"></textarea>
+        </template>
+        
+    </base-dialog>
+    <li v-for="(item,index) in resourse" :key="index">
+        <div class="card-header">
+            <p class="name">名稱：無名氏</p>
+            <p>發文時間：{{item.time}}</p>
         </div>
+        <div class="card-body">
+            <span>{{item.content}}</span>
+        </div>
+        <button @click="editMsg(item)">編輯</button>
+        <button @click="deleteMsg(index)">刪除</button>
+    </li>
+    <div class="return-btn" v-if="resourse.length === 0">
+        <h2 >此處沒有留言...</h2>
+        <router-link to="../index">返回</router-link>
+    </div>
         
 </template>
 
 <script>
+ import BaseDialog from '../UI/BaseDialog.vue'
 export default {
-    inject:['resourse','deleteMessage','getEditMessage'],
+    inject:['resourse','deleteMessage','editMessage'],
+    components:{
+        BaseDialog
+    },
+    data(){
+        return{
+            isShow:false,
+            editId:''   
+        }
+    },
     methods:{
-        deleteM(index){
+        deleteMsg(index){
             this.deleteMessage(index)
         },
-        editM(index,item){
-            this.getEditMessage(index)
-            item.isEdit = false
+        editMsg(item){
+            this.isShow = true
+            this.editingMsg = item.content
+            this.editId = item.id
         },
+        check(){
+            this.isShow = false
+            this.editMessage(this.editingMsg,this.editId)
+        }
     }
 }
 </script>
@@ -68,6 +93,9 @@ h2{
         border-radius: 25px;
     }
     
+}
+textarea{
+    width: 100%;
 }
 
 

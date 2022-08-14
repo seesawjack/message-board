@@ -1,5 +1,5 @@
 <template>
-    <message-form :editMsg="editContent"></message-form>
+    <message-form></message-form>
     <ul>
         <message-card></message-card>
     </ul>
@@ -22,8 +22,6 @@ export default {
     data(){
         return{
             storedResources:[],
-            editContent:'',
-            editIndex:0,
         }
 	},
     provide(){
@@ -31,7 +29,6 @@ export default {
             resourse:this.storedResources,
             addMessage:this.addMessage,
             deleteMessage:this.deleteMessage,
-            getEditMessage:this.getEditMessage,
             editMessage:this.editMessage,
         }
     },
@@ -45,21 +42,14 @@ export default {
                 isEdit:true
             }
             this.storedResources.push(newResource);
-            sessionStorage.setItem('message',JSON.stringify(this.storedResources));
         },
         deleteMessage(index){
             this.storedResources.splice(index,1)
         },
-        getEditMessage(index){
-            this.editContent= this.storedResources[index].content
-            this.editIndex = index 
-        },
-        editMessage(editTitle){
-            this.storedResources[this.editIndex].title = editTitle;
-            this.storedResources[this.editIndex].isEdit = true;
-            this.editContent = ''
-            this.editIndex = 0
-            console.log('編輯')
+        editMessage(content,id){
+           this.storedResources.filter(item=> 
+            item.id === id ? item.content = content:''
+           )
         }
 
     }

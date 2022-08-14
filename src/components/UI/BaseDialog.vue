@@ -12,8 +12,8 @@
         </section>
         <menu>
             <slot name="actions">
-                <button @click="$emit('close')">okay</button>
-            </slot>
+                <button @click="$emit('close')">確認</button>
+            </slot>  
         </menu>
     </dialog>
   </teleport>

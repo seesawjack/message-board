@@ -21,7 +21,7 @@ export default {
         return{
             messageGroup:[
                 {
-                    id:'g1',
+                    id:'board1',
                     name:{
                         english:'gossiping',
                         chinese:'八卦版'
@@ -29,7 +29,7 @@ export default {
                     img:`gossiping_bn.png`
                 },
                 {
-                    id:'g2',
+                    id:'board2',
                     name:{
                         english:'c_chat',
                         chinese:'西洽版'
@@ -37,7 +37,7 @@ export default {
                     img:'cchat_bn.png'
                 },
                 {
-                    id:'g3',
+                    id:'board3',
                     name:{
                         english:'movie',
                         chinese:'電影版'
