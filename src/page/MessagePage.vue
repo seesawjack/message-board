@@ -1,5 +1,5 @@
 <template>
-    <message-form :editValue="editContent"></message-form>
+    <message-form :editMsg="editContent"></message-form>
     <ul>
         <message-card></message-card>
     </ul>
@@ -7,8 +7,12 @@
 </template>
 
 <script>
-import MessageForm from '../components/AddMessage/MessageForm.vue'
-import MessageCard from '../components/AddMessage/MessageCard.vue'
+import MessageForm from '../components/Message/MessageForm.vue'
+import MessageCard from '../components/Message/MessageCard.vue'
+
+var moment = require('moment');
+moment.locale('zh-tw');
+
 
 export default {
     components:{
@@ -24,29 +28,22 @@ export default {
 	},
     provide(){
         return{
-            addMessage:this.addMessage,
             resourse:this.storedResources,
+            addMessage:this.addMessage,
             deleteMessage:this.deleteMessage,
             getEditMessage:this.getEditMessage,
             editMessage:this.editMessage,
-            isEditValue :this.editContent
         }
     },
     methods:{
-        addMessage(title){
-            const week = ['日','一','二','三','四','五','六']
-            const time = `${new Date().getFullYear()}/
-            ${new Date().getMonth()+1}/
-            ${new Date().getDate()}(${week[new Date().getDay()]}) 
-            ${new Date().getHours()}:${new Date().getMinutes()}`;
-
+        addMessage(content){
+            const time = moment().format('LLLL')
             const newResource = {
-                id:new Date().toISOString(),
+                id:this.$uuid.v1(),
                 time:time,
-                title:title,
+                content:content,
                 isEdit:true
             }
-
             this.storedResources.push(newResource);
             sessionStorage.setItem('message',JSON.stringify(this.storedResources));
         },
@@ -54,9 +51,8 @@ export default {
             this.storedResources.splice(index,1)
         },
         getEditMessage(index){
-            this.editContent= this.storedResources[index].title
-            this.editIndex = index
-            
+            this.editContent= this.storedResources[index].content
+            this.editIndex = index 
         },
         editMessage(editTitle){
             this.storedResources[this.editIndex].title = editTitle;

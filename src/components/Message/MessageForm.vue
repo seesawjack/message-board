@@ -10,17 +10,17 @@
       </template>
       <template #actions></template>
     </base-dialog>
-    
+    <!-- 表單輸入 -->
     <form @submit.prevent="submitData()">
-		<input type="text" ref="titleInput" :value="editValue">
-		<button :class="editValue? 'edit':''">{{editValue? '編輯完成':'輸入留言'}}</button>
+		<input type="text" ref="inputMsg" :value="editMsg">
+		<button :class="editMsg? 'edit':''">{{editMsg? '編輯完成':'輸入留言'}}</button>
 	</form>
 </template>
 
 <script>
 import BaseDialog from '../UI/BaseDialog.vue'
 export default {
-    props:['editValue'],
+    props:['editMsg'],
     inject:['addMessage','editMessage'],
     components:{
         BaseDialog
@@ -32,11 +32,11 @@ export default {
     },
     methods:{
         submitData(){
-        const enterMessage = this.$refs.titleInput.value;
+        const enterMessage = this.$refs.inputMsg.value;
         
-        if(this.editValue){
+        if(this.editMsg){
             this.editMessage(enterMessage)
-            this.$refs.titleInput.value = '';
+            this.$refs.inputMsg.value = '';
             console.log('編輯')
             return;
         }
@@ -46,7 +46,7 @@ export default {
            return; 
         }
         this.addMessage(enterMessage)
-        this.$refs.titleInput.value = '';
+        this.$refs.inputMsg.value = '';
         },
         confirmError(){
             this.inputIsInvalid = false;

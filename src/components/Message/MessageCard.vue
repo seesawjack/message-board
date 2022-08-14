@@ -5,7 +5,7 @@
                 <p>發文時間：{{item.time}}</p>
             </div>
             <div class="card-body">
-                <span>{{item.title}}</span>
+                <span>{{item.content}}</span>
             </div>
             <button @click="editM(index,item)">編輯</button>
 			<button v-if="item.isEdit" @click="deleteM(index)">刪除</button>

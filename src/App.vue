@@ -5,16 +5,12 @@
 
 <script>
 import TheHeader from './components/UI/TheHeader.vue';
-
-
 export default {
-		name: 'App',
-		components:{
-			TheHeader,
-		},
+	name: 'App',
+	components:{
+		TheHeader,
+	},
 }
-
-
 </script>
 
 <style>

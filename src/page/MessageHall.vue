@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import HallCard from '../components/HallMessage/HallCard.vue'
+import HallCard from '../components/Message/HallCard.vue'
 export default {
     components:{
         HallCard
