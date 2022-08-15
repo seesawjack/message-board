@@ -26,7 +26,7 @@ export default {
                         english:'gossiping',
                         chinese:'八卦版'
                     },
-                    img:`gossiping_bn.png`
+                    img:`gossiping-bn.png`
                 },
                 {
                     id:'board2',
@@ -34,7 +34,7 @@ export default {
                         english:'c_chat',
                         chinese:'西洽版'
                     },
-                    img:'cchat_bn.png'
+                    img:'cchat-bn.png'
                 },
                 {
                     id:'board3',
@@ -42,7 +42,7 @@ export default {
                         english:'movie',
                         chinese:'電影版'
                     },
-                    img:'movie_bn.png'
+                    img:'movie-bn.png'
                 }
             ]
         }
