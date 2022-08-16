@@ -31,7 +31,7 @@ export default {
     methods:{
         submitData(){
         const enterMessage = this.$refs.inputMsg.value;
-                if(enterMessage.trim() === ''){
+        if(enterMessage.trim() === ''){
           this.inputIsInvalid = true
            return; 
         }
