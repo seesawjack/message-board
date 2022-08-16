@@ -1,7 +1,7 @@
 <template>
     <h1>沒有此頁面內容....</h1>
     <div class="center-link">
-        <router-link to="../index">點我返回</router-link>
+        <router-link to="../">點我返回</router-link>
     </div>
 </template>
 

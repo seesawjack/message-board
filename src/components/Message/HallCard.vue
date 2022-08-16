@@ -40,8 +40,14 @@ export default {
             border-radius: 25px 25px 0px 0px;
         }
         p{
-            margin: 0px;
-            margin-top: 20px;
+            margin: 20px 0px;
+        }
+        a{
+             color: #fff;
+            text-decoration: none;
+            background-color: rgb(38, 152, 152);
+            padding: 10px 40px;
+            border-radius: 25px;
         }
     }
 </style>

@@ -17,12 +17,12 @@
         <div class="card-body">
             <span>{{item.content}}</span>
         </div>
-        <button @click="editMsg(item)">編輯</button>
-        <button @click="deleteMsg(index)">刪除</button>
+        <button class="edit-btn" @click="editMsg(item)">編輯</button>
+        <button class="delete-btn" @click="deleteMsg(index)">刪除</button>
     </li>
     <div class="return-btn" v-if="resourse.length === 0">
         <h2 >此處沒有留言...</h2>
-        <router-link to="../index">返回</router-link>
+        <router-link to="../">返回</router-link>
     </div>
         
 </template>
@@ -51,8 +51,23 @@ export default {
         },
         check(){
             this.isShow = false
-            this.editMessage(this.editingMsg,this.editId)
+            if(confirm('你確定送出訊息嗎？')){
+               this.editMessage(this.editingMsg,this.editId)
+            }
+        },
+        getData(){
+           let data = JSON.parse(localStorage.getItem('message'+this.$route.params.boardId));
+           if(data){
+                let boardData = data.filter(item => item.pageId === this.$route.params.boardId)
+                for(let msg of boardData){
+                    this.resourse.push(msg)
+                }
+           }
+          
         }
+    },
+     mounted(){
+        this.getData()
     }
 }
 </script>
@@ -97,6 +112,31 @@ h2{
 textarea{
     width: 100%;
 }
-
+.card-body{
+    margin: 10px 0px;
+}
+.edit-btn{
+    cursor: pointer;
+    background-color: unset;
+    border: 1px solid rgb(38, 152, 152);
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-right: 20px;
+    &:hover{
+        color: #fff;
+        background-color: rgb(38, 152, 152);
+    }
+}
+.delete-btn{
+    cursor: pointer;
+    background-color: unset;
+    border: 1px solid rgb(188, 20, 81);
+    border-radius: 5px;
+    padding: 5px 10px;
+    &:hover{
+        color: #fff;
+        background-color: rgb(188, 20, 81);
+    }
+}
 
 </style>

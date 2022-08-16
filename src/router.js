@@ -2,7 +2,7 @@ import { createRouter,createWebHistory } from 'vue-router';
 
 // import MessageForm from './components/AddMessage/MessageForm.vue';
 import TheIndex from './page/IndexPage.vue';
-import TheMessage from './page/MessagePage.vue';
+import MessagePage from './page/MessagePage.vue';
 import NotFound from './page/NotFound.vue';
 import MessageHall from './page/MessageHall.vue';
 import TheHeader from './components/UI/TheHeader.vue'
@@ -12,11 +12,11 @@ const router = createRouter({
     history:createWebHistory(),
     routes:[
         {
-          path:'/',redirect:'/index'  
+          path:'/',redirect:'/message-board'  
         },
         {
             name:'index',
-            path:'/index',
+            path:'/message-board',
             meta:{needsAuth:true},
             components:{
                 default:TheIndex
@@ -33,7 +33,7 @@ const router = createRouter({
             path:'/hall/:boardId',
             meta:{needsAuth:true},
             components:{
-                default:TheMessage,
+                default:MessagePage,
                 header:TheHeader
             }
         }, 

@@ -22,6 +22,7 @@ export default {
     data(){
         return{
             storedResources:[],
+            pageId:this.$route.params.boardId
         }
 	},
     provide(){
@@ -37,19 +38,23 @@ export default {
             const time = moment().format('LLLL')
             const newResource = {
                 id:this.$uuid.v1(),
+                pageId:this.pageId,
                 time:time,
                 content:content,
-                isEdit:true
             }
-            this.storedResources.push(newResource);
+            this.storedResources.unshift(newResource);
+            localStorage.setItem('message'+this.pageId,JSON.stringify(this.storedResources))
         },
         deleteMessage(index){
             this.storedResources.splice(index,1)
+            localStorage.setItem('message'+this.pageId,JSON.stringify(this.storedResources))
         },
         editMessage(content,id){
-           this.storedResources.filter(item=> 
+            this.storedResources.filter(item=> 
             item.id === id ? item.content = content:''
            )
+           console.log(this.storedResources)
+           localStorage.setItem('message'+this.pageId,JSON.stringify(this.storedResources))
         }
 
     }
