@@ -21,7 +21,7 @@ export default {
     },
     data(){
         return{
-            storedResources:[],
+            storedResources:[]
         }
 	},
     provide(){
@@ -36,22 +36,45 @@ export default {
         addMessage(content){
             const time = moment().format('LLLL')
             const newResource = {
+                pageId:this.pageIs,
                 id:this.$uuid.v1(),
                 time:time,
                 content:content,
-                isEdit:true
             }
+
+            fetch('https://message-board-3245b-default-rtdb.firebaseio.com/message-board-'+this.$route.params.boardId+'.json',{
+                method:'POST',
+                headers:{
+                'Content-Type':'application/json'
+                },
+                body:JSON.stringify({
+                    pageId:this.$route.params.boardId,
+                    id:this.$uuid.v1(),
+                    time:time,
+                    content:content,
+                })
+            })
+            .then((response)=>{
+                if(response.ok){
+                    console.log('狀態正常')
+                }else{
+                    throw new Error("無法發送資料")
+                }
+            })
+            .catch((error)=>{
+                console.log(error);
+                this.error=error.message;
+            })
             this.storedResources.push(newResource);
         },
         deleteMessage(index){
             this.storedResources.splice(index,1)
         },
-        editMessage(content,id){
-           this.storedResources.filter(item=> 
-            item.id === id ? item.content = content:''
-           )
-        }
-
+        // editMessage(content,id){
+        //    this.storedResources.filter(item=> 
+        //     item.id === id ? item.content = content:''
+        //    )
+        // }
     }
 }
 </script>

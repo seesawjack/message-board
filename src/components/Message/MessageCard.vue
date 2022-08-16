@@ -9,7 +9,7 @@
         </template>
         
     </base-dialog>
-    <li v-for="(item,index) in resourse" :key="index">
+    <li v-for="(item,index) in results" :key="index">
         <div class="card-header">
             <p class="name">名稱：無名氏</p>
             <p>發文時間：{{item.time}}</p>
@@ -19,10 +19,11 @@
         </div>
         <button @click="editMsg(item)">編輯</button>
         <button @click="deleteMsg(index)">刪除</button>
+        <button @click="getDiff()">取得資料</button>
     </li>
     <div class="return-btn" v-if="resourse.length === 0">
         <h2 >此處沒有留言...</h2>
-        <router-link to="../index">返回</router-link>
+        <router-link to="../">返回</router-link>
     </div>
         
 </template>
@@ -30,19 +31,21 @@
 <script>
  import BaseDialog from '../UI/BaseDialog.vue'
 export default {
-    inject:['resourse','deleteMessage','editMessage'],
+    inject:['resourse','addMessage','deleteMessage'],
     components:{
         BaseDialog
     },
     data(){
         return{
             isShow:false,
-            editId:''   
+            editId:'',
+            results:[],
+            changeSaved:false,   
         }
     },
     methods:{
         deleteMsg(index){
-            this.deleteMessage(index)
+            this.results.splice(index,1)
         },
         editMsg(item){
             this.isShow = true
@@ -51,8 +54,41 @@ export default {
         },
         check(){
             this.isShow = false
-            this.editMessage(this.editingMsg,this.editId)
+            if(confirm('你確定送出訊息嗎？')){
+                this.results.filter(item=>item.id === this.editId? item.content = this.editingMsg:'')
+            }
+            
+        },
+        getData(){
+            fetch('https://message-board-3245b-default-rtdb.firebaseio.com/message-board-'+this.$route.params.boardId+'.json')
+            .then((response)=>{
+                if(response.ok){
+                    return response.json()
+                }
+            }).then((data)=>{
+                const results = [];
+                for(const id in data){
+                    results.push({
+                    pageId:data[id].pageId,
+                    id:data[id].id,
+                    time:data[id].time,
+                    content:data[id].content
+                    })
+                    this.results = results
+                }
+                console.log(this.results)
+            })
+            .catch((error)=>{
+                console.log(error);
+            })
+        },
+        getDiff(){
+            console.log('本地',this.resourse)
+            console.log('API',this.results)
         }
+    },
+    mounted(){
+        this.getData()
     }
 }
 </script>
