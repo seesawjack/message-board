@@ -1,7 +1,7 @@
 <template>
     <h1>歡迎來到留言板</h1>
     <div class="center-link">
-        <router-link to="hall">點我進入</router-link>
+        <router-link to="/hall">點我進入</router-link>
     </div>  
 </template>
 
