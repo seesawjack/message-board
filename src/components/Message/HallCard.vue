@@ -2,7 +2,7 @@
     <router-view></router-view>
     <li>
         <div class="message-group">
-            <img :src="require(`@/assets/images/${imgLink}`)" :alt="altName" :title="altName">
+            <div :class="`color ${color}`"></div>
             <p>{{groupName}}</p>
             <router-link :to="boardLink">點我進入</router-link>
         </div>
@@ -12,7 +12,7 @@
 <script>
 
 export default {
-    props:['groupName','altName','imgLink','id'],
+    props:['groupName','altName','imgLink','id','color'],
     computed:{
         boardLink(){
         return {
@@ -48,6 +48,20 @@ export default {
             background-color: rgb(38, 152, 152);
             padding: 10px 40px;
             border-radius: 25px;
+        }
+        .color{
+            width:300px;    
+            height:120px;
+            border-radius: 25px 25px 0px 0px;
+            &.green{
+                background:green;
+            }
+            &.red{
+                 background:red;
+            }
+            &.blue{
+                 background:blue;
+            }
         }
     }
 </style>

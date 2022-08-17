@@ -6,7 +6,7 @@
         :id="message.id"
         :alt-name="message.name.english"
         :group-name="message.name.chinese"
-        :imgLink="message.img"
+        :color="message.color"
         ></hall-card>
     </ul>
 </template>
@@ -26,7 +26,8 @@ export default {
                         english:'gossiping',
                         chinese:'八卦版'
                     },
-                    img:'gossiping-bn.png'
+                    img:'gossiping-bn.png',
+                    color:'red'
                 },
                 {
                     id:'board2',
@@ -34,7 +35,8 @@ export default {
                         english:'c_chat',
                         chinese:'西洽版'
                     },
-                    img:'cchat-bn.png'
+                    img:'cchat-bn.png',
+                    color:'blue'
                 },
                 {
                     id:'board3',
@@ -42,7 +44,8 @@ export default {
                         english:'movie',
                         chinese:'電影版'
                     },
-                    img:'movie-bn.png'
+                    img:'movie-bn.png',
+                    color:'green'
                 }
             ]
         }
