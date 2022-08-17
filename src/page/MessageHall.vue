@@ -26,7 +26,7 @@ export default {
                         english:'gossiping',
                         chinese:'八卦版'
                     },
-                    img:`gossiping-bn.png`
+                    img:'gossiping-bn.png'
                 },
                 {
                     id:'board2',
