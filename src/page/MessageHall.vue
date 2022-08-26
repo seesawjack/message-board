@@ -17,37 +17,9 @@ export default {
     components:{
         HallCard
     },
-    data(){
-        return{
-            messageGroup:[
-                {
-                    id:'board1',
-                    name:{
-                        english:'gossiping',
-                        chinese:'八卦版'
-                    },
-                    img:'gossiping-bn.png',
-                    color:'red'
-                },
-                {
-                    id:'board2',
-                    name:{
-                        english:'c_chat',
-                        chinese:'西洽版'
-                    },
-                    img:'cchat-bn.png',
-                    color:'blue'
-                },
-                {
-                    id:'board3',
-                    name:{
-                        english:'movie',
-                        chinese:'電影版'
-                    },
-                    img:'movie-bn.png',
-                    color:'green'
-                }
-            ]
+    computed:{
+        messageGroup(){
+            return this.$store.state.allMessage
         }
     }
 }

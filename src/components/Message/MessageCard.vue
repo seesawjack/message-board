@@ -5,7 +5,7 @@
         @close="check"
         >
         <template #default>
-            <textarea  cols="30" rows="10" v-model="editInput"></textarea>
+            <textarea  cols="30" rows="10" v-model="msgEdit"></textarea>
         </template>
         
     </base-dialog>
@@ -20,7 +20,7 @@
         <button class="edit-btn" @click="editMsg(item.id)">編輯</button>
         <button class="delete-btn" @click="deleteMsg(index)">刪除</button>
     </li>
-    <div class="return-btn" v-if="resourse.length === 0">
+    <div class="return-btn" v-if="messages.length === 0">
         <h2 >此處沒有留言...</h2>
         <router-link to="../">返回</router-link>
     </div>
@@ -30,39 +30,31 @@
 <script>
  import BaseDialog from '../UI/BaseDialog.vue'
 export default {
-    inject:['resourse','deleteMessage','editMessage'],
     components:{
         BaseDialog
     },
     data(){
         return{
-            isShow:false,
-            editId:''   
+            isShow:false,   
         }
     },
     computed:{
         messages(){
             return this.$store.state.storedResources
         },
-        editInput:{
+        msgEdit:{
             get(){
-                return this.$store.getters.editInput
+                return this.$store.state.msgEdit
             },
             set(value){
-                this.$store.commit('storeEditMessage',{content:value})
+                this.$store.commit('storeEditMsg',{content:value})
             }
         }
     },
     methods:{
         deleteMsg(index){
-            // this.deleteMessage(index)
             this.$store.commit('deleteMsg',{index:index})
         },
-        // editMsg(item){
-        //     this.isShow = true
-        //     this.editingMsg = item.content
-        //     this.editId = item.id
-        // },
         editMsg(id){
             this.isShow = true
             this.$store.commit('editMsg',{id:id})
@@ -70,24 +62,23 @@ export default {
         check(){
             this.isShow = false
             if(confirm('你確定送出訊息嗎？')){
-            //    this.editMessage(this.editingMsg,this.editId)
-            this.$store.commit('check')
+                this.$store.commit('sendMsg')
             }
         },
-        getData(){
-           let data = JSON.parse(localStorage.getItem('message'+this.$route.params.boardId));
-           if(data){
-                let boardData = data.filter(item => item.pageId === this.$route.params.boardId)
-                for(let msg of boardData){
-                    this.resourse.push(msg)
-                }
-           }
+        // getData(){
+        //    let data = JSON.parse(localStorage.getItem('message'+this.$route.params.boardId));
+        //    if(data){
+        //         let boardData = data.filter(item => item.pageId === this.$route.params.boardId)
+        //         for(let msg of boardData){
+        //             this.resourse.push(msg)
+        //         }
+        //    }
           
-        }
+        // }
     },
-     mounted(){
-        this.getData()
-    }
+    //  mounted(){
+    //     this.getData()
+    // }
 }
 </script>
 

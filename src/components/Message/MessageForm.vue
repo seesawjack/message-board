@@ -11,7 +11,7 @@
     </base-dialog>
     <!-- 表單輸入 -->
     <form @submit.prevent="submitData()">
-		<input type="text" v-model="inputMsg">
+		<input type="text" v-model="msgInput">
 		<button>輸入留言</button>
 	</form>
 </template>
@@ -19,7 +19,6 @@
 <script>
 import BaseDialog from '../UI/BaseDialog.vue'
 export default {
-    inject:['addMessage'],
     components:{
         BaseDialog
     },
@@ -29,19 +28,21 @@ export default {
        } 
     },
     computed:{
-        inputMsg:{
+        msgInput:{
             get(){
-                return this.$store.state.inputMsg
+                return this.$store.state.msgInput
             },
             set(value){
-                this.$store.commit('storeMessage',{content:value}) 
+                this.$store.commit('storeInputMsg',{content:value}) 
             }
         }
     },
     methods:{
         submitData(){
-        this.$store.commit('addMessage')
-
+            this.msgInput? 
+            this.$store.commit('addMsg'):
+            this.inputIsInvalid = true
+           
         },
         confirmError(){
             this.inputIsInvalid = false;
