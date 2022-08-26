@@ -43,6 +43,9 @@ const store =createStore({
                 }
             })
             console.log('123')
+        },
+        deleteMsg(state,payload){
+            state.storedResources.splice(payload.index,1)
         }
 
     },

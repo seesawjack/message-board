@@ -55,7 +55,8 @@ export default {
     },
     methods:{
         deleteMsg(index){
-            this.deleteMessage(index)
+            // this.deleteMessage(index)
+            this.$store.commit('deleteMsg',{index:index})
         },
         // editMsg(item){
         //     this.isShow = true
