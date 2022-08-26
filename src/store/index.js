@@ -10,7 +10,6 @@ const store =createStore({
         return{
             storedResources:[],
             inputMsg:'',
-            messageId:uuid.v1()
         }
     },
     mutations:{
@@ -20,6 +19,7 @@ const store =createStore({
         addMessage(state){
             const time = moment().format('LLLL')
             const newResource = {
+                id:uuid.v1(),
                 time:time,
                 content:state.inputMsg,
             }
