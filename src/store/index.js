@@ -1,10 +1,9 @@
 import {createStore} from 'vuex';
+import router from '../router.js'
 import { uuid } from 'vue-uuid';
 
 var moment = require('moment');
 moment.locale('zh-tw');
-
-
 const store =createStore({
     state(){
         return{
@@ -41,6 +40,7 @@ const store =createStore({
                     color:'green'
                 }
             ],
+            pageId:router.currentRoute
         }
     },
     mutations:{
@@ -54,6 +54,7 @@ const store =createStore({
             const time = moment().format('LLLL')
             const newResource = {
                 id:uuid.v1(),
+                pageId:state.pageId.params.boardId,
                 time:time,
                 content:state.msgInput,
             }
