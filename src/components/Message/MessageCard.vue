@@ -9,7 +9,7 @@
         </template>
         
     </base-dialog>
-    <li v-for="(item,index) in resourse" :key="index">
+    <li v-for="(item,index) in messages" :key="index">
         <div class="card-header">
             <p class="name">名稱：無名氏</p>
             <p>發文時間：{{item.time}}</p>
@@ -38,6 +38,11 @@ export default {
         return{
             isShow:false,
             editId:''   
+        }
+    },
+    computed:{
+        messages(){
+            return this.$store.state.storedResources
         }
     },
     methods:{

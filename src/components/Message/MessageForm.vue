@@ -11,7 +11,7 @@
     </base-dialog>
     <!-- 表單輸入 -->
     <form @submit.prevent="submitData()">
-		<input type="text" ref="inputMsg">
+		<input type="text" v-model="inputMsg">
 		<button>輸入留言</button>
 	</form>
 </template>
@@ -28,15 +28,20 @@ export default {
         inputIsInvalid:false,
        } 
     },
+    computed:{
+        inputMsg:{
+            get(){
+                return this.$store.state.inputMsg
+            },
+            set(value){
+                this.$store.commit('storeMessage',{content:value}) 
+            }
+        }
+    },
     methods:{
         submitData(){
-        const enterMessage = this.$refs.inputMsg.value;
-                if(enterMessage.trim() === ''){
-          this.inputIsInvalid = true
-           return; 
-        }
-        this.addMessage(enterMessage)
-        this.$refs.inputMsg.value = '';
+        this.$store.commit('addMessage')
+
         },
         confirmError(){
             this.inputIsInvalid = false;
