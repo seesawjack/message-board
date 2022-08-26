@@ -40,7 +40,7 @@ const store =createStore({
                     img:'movie-bn.png',
                     color:'green'
                 }
-            ]
+            ],
         }
     },
     mutations:{
