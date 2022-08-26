@@ -64,21 +64,8 @@ export default {
             if(confirm('你確定送出訊息嗎？')){
                 this.$store.commit('sendMsg')
             }
-        },
-        // getData(){
-        //    let data = JSON.parse(localStorage.getItem('message'+this.$route.params.boardId));
-        //    if(data){
-        //         let boardData = data.filter(item => item.pageId === this.$route.params.boardId)
-        //         for(let msg of boardData){
-        //             this.resourse.push(msg)
-        //         }
-        //    }
-          
-        // }
-    },
-    //  mounted(){
-    //     this.getData()
-    // }
+        }
+    }
 }
 </script>
 

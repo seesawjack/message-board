@@ -59,7 +59,7 @@ const store =createStore({
                 content:state.msgInput,
             }
             state.storedResources.unshift(newResource);
-            state.msgInput = ''
+            state.msgInput = '';
         },
         editMsg(state,payload){
             state.editId = payload.id
@@ -74,7 +74,7 @@ const store =createStore({
         },
         deleteMsg(state,payload){
             state.storedResources.splice(payload.index,1)
-        }
+        },
     }
 })
 

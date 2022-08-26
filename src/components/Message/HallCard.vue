@@ -1,5 +1,4 @@
 <template>
-    <router-view></router-view>
     <li>
         <div class="message-group">
             <div :class="`color ${color}`"></div>

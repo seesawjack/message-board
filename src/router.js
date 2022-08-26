@@ -1,6 +1,5 @@
 import { createRouter,createWebHistory } from 'vue-router';
 
-// import MessageForm from './components/AddMessage/MessageForm.vue';
 import TheIndex from './page/IndexPage.vue';
 import MessagePage from './page/MessagePage.vue';
 import NotFound from './page/NotFound.vue';
