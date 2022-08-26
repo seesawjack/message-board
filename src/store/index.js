@@ -10,11 +10,17 @@ const store =createStore({
         return{
             storedResources:[],
             inputMsg:'',
+            editInput:'',
+            editId:''
         }
     },
     mutations:{
         storeMessage(state,payload){
             state.inputMsg = payload.content
+            
+        },
+        storeEditMessage(state,payload){
+            state.editInput = payload.content
         },
         addMessage(state){
             const time = moment().format('LLLL')
@@ -25,6 +31,24 @@ const store =createStore({
             }
             state.storedResources.unshift(newResource);
             state.inputMsg = ''
+        },
+        editMsg(state,payload){
+            state.editId = payload.id
+            state.editInput = state.storedResources.find(item=>item.id === payload.id).content
+        },
+        check(state){
+            state.storedResources.filter(item=>{
+                if(item.id === state.editId){
+                    item.content = state.editInput
+                }
+            })
+            console.log('123')
+        }
+
+    },
+    getters:{
+        editInput(state){
+            return state.editInput
         }
     }
 })

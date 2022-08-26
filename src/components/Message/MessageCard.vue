@@ -5,7 +5,7 @@
         @close="check"
         >
         <template #default>
-            <textarea  cols="30" rows="10" v-model="editingMsg"></textarea>
+            <textarea  cols="30" rows="10" v-model="editInput"></textarea>
         </template>
         
     </base-dialog>
@@ -17,7 +17,7 @@
         <div class="card-body">
             <span>{{item.content}}</span>
         </div>
-        <button class="edit-btn" @click="editMsg(item)">編輯</button>
+        <button class="edit-btn" @click="editMsg(item.id)">編輯</button>
         <button class="delete-btn" @click="deleteMsg(index)">刪除</button>
     </li>
     <div class="return-btn" v-if="resourse.length === 0">
@@ -43,21 +43,34 @@ export default {
     computed:{
         messages(){
             return this.$store.state.storedResources
+        },
+        editInput:{
+            get(){
+                return this.$store.getters.editInput
+            },
+            set(value){
+                this.$store.commit('storeEditMessage',{content:value})
+            }
         }
     },
     methods:{
         deleteMsg(index){
             this.deleteMessage(index)
         },
-        editMsg(item){
+        // editMsg(item){
+        //     this.isShow = true
+        //     this.editingMsg = item.content
+        //     this.editId = item.id
+        // },
+        editMsg(id){
             this.isShow = true
-            this.editingMsg = item.content
-            this.editId = item.id
+            this.$store.commit('editMsg',{id:id})
         },
         check(){
             this.isShow = false
             if(confirm('你確定送出訊息嗎？')){
-               this.editMessage(this.editingMsg,this.editId)
+            //    this.editMessage(this.editingMsg,this.editId)
+            this.$store.commit('check')
             }
         },
         getData(){
