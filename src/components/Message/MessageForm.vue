@@ -30,17 +30,17 @@ export default {
     computed:{
         msgInput:{
             get(){
-                return this.$store.state.msgInput
+                return this.$store.state.form.msgInput
             },
             set(value){
-                this.$store.commit('storeInputMsg',{content:value}) 
+                this.$store.commit('form/storeInputMsg',{content:value}) 
             }
         }
     },
     methods:{
         submitData(){
             this.msgInput? 
-            this.$store.commit('addMsg'):
+            this.$store.dispatch('form/addMsg'):
             this.inputIsInvalid = true
            
         },

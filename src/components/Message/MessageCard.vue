@@ -44,25 +44,25 @@ export default {
         },
         msgEdit:{
             get(){
-                return this.$store.state.msgEdit
+                return this.$store.state.card.msgEdit
             },
             set(value){
-                this.$store.commit('storeEditMsg',{content:value})
+                this.$store.commit('card/storeEditMsg',{content:value})
             }
         }
     },
     methods:{
         deleteMsg(index){
-            this.$store.commit('deleteMsg',{index:index})
+            this.$store.dispatch('card/deleteMsg',{index:index})
         },
         editMsg(id){
             this.isShow = true
-            this.$store.commit('editMsg',{id:id})
+            this.$store.dispatch('card/editMsg',{id:id})
         },
         check(){
             this.isShow = false
             if(confirm('你確定送出訊息嗎？')){
-                this.$store.commit('sendMsg')
+                this.$store.dispatch('card/sendMsg')
             }
         }
     }
