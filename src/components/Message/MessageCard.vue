@@ -11,7 +11,7 @@
     </base-dialog>
     <li v-for="(item,index) in messages" :key="index">
         <div class="card-header">
-            <p class="name">名稱：無名氏</p>
+            <p :class="[{isAuth:isAuth},'name']">名稱：無名氏</p>
             <p>發文時間：{{item.time}}</p>
         </div>
         <div class="card-body">
@@ -49,6 +49,9 @@ export default {
             set(value){
                 this.$store.commit('card/storeEditMsg',{content:value})
             }
+        },
+        isAuth(){
+            return this.$store.getters.isAuth
         }
     },
     methods:{
@@ -86,6 +89,9 @@ li{
         margin: 0;
         &.name{
             margin-right: 10px;
+            &.isAuth{
+                color: rgb(10, 129, 172);
+            }
         }
     }
 }

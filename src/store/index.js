@@ -40,7 +40,21 @@ const store =createStore({
                     img:'movie-bn.png',
                     color:'green'
                 }
-            ]
+            ],
+            isAuth:false
+        }
+    },
+    mutations:{
+        logIn(state){
+            state.isAuth = true
+        },
+        logOut(state){
+            state.isAuth = false
+        }
+    },
+    getters:{
+        isAuth(state){
+            return state.isAuth
         }
     }
 })
