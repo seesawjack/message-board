@@ -13,7 +13,8 @@
 
 <script>
 import { computed } from 'vue'
-import { useStore } from 'vuex'
+// import { useStore } from 'vuex'
+import { useIndexStore } from '@/store/pinia'
 import HallCard from '../components/Message/HallCard.vue'
 
 export default {
@@ -21,9 +22,9 @@ export default {
         HallCard
     },
     setup(){
-        const store = useStore()
+        const indxeStore = useIndexStore()
         const messageGroup = computed(()=>{
-            return store.state.allMessage
+            return indxeStore.allMessage
         })
         return{
            messageGroup 

@@ -42,6 +42,7 @@ export default {
             }
         })
         const submitData = ()=>{
+            isValid.value = true
             if(msgInput.value){
                 formStore.addMsg()
             }else{
@@ -53,6 +54,7 @@ export default {
             if(msgInput.value){
                 isValid.value = true
             }
+            console.log(isValid.value)
         }
         const confirmError = ()=>{
             inputIsInvalid.value = false;

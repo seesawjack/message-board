@@ -5,30 +5,6 @@
     </div>  
 </template>
 
-<script>
-// import { useStore } from '@/store/pinia'
-// // import { storeToRefs } from 'pinia';
-
-// export default {
-//     setup() {
-//         const store = useStore() 
-//     //    const { isAuth } = storeToRefs(store)
-//         const logIn = ()=>{
-//             store.logIn()
-//         }
-//         const logOut = ()=>{
-//             store.logOut()
-//         }
-//        return{
-//             // isAuth,
-//             store,
-//             logIn,
-//             logOut
-//        }
-//     },
-// }
-</script>
-
 <style scoped>
 h1{
     color: #fff;
