@@ -50,11 +50,11 @@ export default {
             }
         })
         const deleteMsg = (index)=>{
-            store.commit('card/deleteMsg',{index:index})
+            store.dispatch('card/deleteMsg',{index:index})
         }
         const editMsg = (id)=>{
             isShow.value = true
-            store.commit('card/editMsg',{id:id})
+            store.dispatch('card/editMsg',{id:id})
         }
         const check = ()=>{
             isShow.value = false
@@ -62,9 +62,9 @@ export default {
                 store.dispatch('card/sendMsg')
             }
         }
-        const isAuth = ()=>{
+        const isAuth = computed(()=>{
             return store.getters.isAuth
-        }
+        })
         return{
             isShow,
             messages,

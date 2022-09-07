@@ -40,7 +40,7 @@ export default {
 
         const submitData = ()=>{
             if(msgInput.value){
-                store.commit('form/addMsg')
+                store.dispatch('form/addMsg')
             }else{
                 inputIsInvalid.value = true
                 isValid.value = false

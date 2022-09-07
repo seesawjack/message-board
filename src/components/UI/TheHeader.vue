@@ -14,15 +14,26 @@
 </template>
 
 <script>
-import { ref, reactive ,watch,} from 'vue'
+import { ref, reactive ,watch, computed} from 'vue'
 import { useRoute } from 'vue-router'
+import { useStore } from 'vuex'
 export default {
     setup(){
     const route = useRoute()
+    const store = useStore()
     const page = reactive({
         board1:'八卦板',
         board2:'西洽板',
         board3:'電影板'
+    })
+    const logIn = ()=>{
+        store.commit('logIn')
+    }
+    const logOut = ()=>{
+        store.commit('logOut')
+    }
+    const isAuth = computed(()=>{
+        return  store.getters.isAuth
     })
 
     let pageTitle = ref('')
@@ -32,9 +43,11 @@ export default {
         pageTitle.value = page[route.params.boardId];
     }) 
     return{
-        pageTitle
+        pageTitle,
+        logIn,
+        logOut,
+        isAuth
     }
-
     },
 }
 
