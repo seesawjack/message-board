@@ -29,7 +29,7 @@
 
 <script>
  import BaseDialog from '../UI/BaseDialog.vue'
- import {ref,computed} from 'vue'
+ import { ref,computed } from 'vue'
  import { useStore } from 'vuex'
 export default {
     components:{
@@ -43,25 +43,25 @@ export default {
         })
         const msgEdit = computed({
             get(){
-                return store.state.msgEdit
+                return store.state.card.msgEdit
             },
             set(value){
-               store.commit('storeEditMsg',{content:value})
+               store.commit('card/storeEditMsg',{content:value})
             }
         })
         const deleteMsg = (index)=>{
-            store.commit('deleteMsg',{index:index})
+            store.commit('card/deleteMsg',{index:index})
         }
         const editMsg = (id)=>{
             isShow.value = true
-            store.commit('editMsg',{id:id})
+            store.commit('card/editMsg',{id:id})
         }
         const check = ()=>{
             isShow.value = false
             if(confirm('你確定送出訊息嗎？')){
-                store.commit('sendMsg')
+                store.dispatch('card/sendMsg')
             }
-        },
+        }
         const isAuth = ()=>{
             return store.getters.isAuth
         }
@@ -71,7 +71,8 @@ export default {
             msgEdit,
             deleteMsg,
             editMsg,
-            check
+            check,
+            isAuth
         }
     }
 }

@@ -24,6 +24,7 @@ export default {
                 time:time,
                 content:state.msgInput,
             }
+            console.log(13)
             payload.storedResources.unshift(newResource);
             state.msgInput = '';
         }

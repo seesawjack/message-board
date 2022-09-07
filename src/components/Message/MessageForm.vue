@@ -31,16 +31,16 @@ export default {
         let isValid = ref(true)
         msgInput = computed({
             get(){
-                return store.state.msgInput
+                return store.state.form.msgInput
             },
             set(value){
-               store.commit('storeInputMsg',{content:value}) 
+               store.commit('form/storeInputMsg',{content:value}) 
             }
         })
 
         const submitData = ()=>{
             if(msgInput.value){
-                store.commit('addMsg')
+                store.commit('form/addMsg')
             }else{
                 inputIsInvalid.value = true
                 isValid.value = false
