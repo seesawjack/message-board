@@ -11,43 +11,58 @@
     </base-dialog>
     <!-- 表單輸入 -->
     <form @submit.prevent="submitData()">
-		<input type="text" v-model="msgInput">
-		<button>輸入留言</button>
+		<input type="text" v-model="msgInput" :class="{'invalid':!isValid}" @blur="clearIsValid">
+		<button :class="{'invalid':!isValid}" @blur="clearIsValid">輸入留言</button>
 	</form>
 </template>
 
 <script>
 import BaseDialog from '../UI/BaseDialog.vue'
+import {ref,computed} from 'vue'
+import { useStore } from 'vuex'
 export default {
     components:{
         BaseDialog
     },
-    data(){
-       return{
-        inputIsInvalid:false,
-       } 
-    },
-    computed:{
-        msgInput:{
+    setup(){
+        const store = useStore();
+        let inputIsInvalid = ref(false)
+        let msgInput = ref('')
+        let isValid = ref(true)
+        msgInput = computed({
             get(){
-                return this.$store.state.form.msgInput
+                return store.state.msgInput
             },
             set(value){
-                this.$store.commit('form/storeInputMsg',{content:value}) 
+               store.commit('storeInputMsg',{content:value}) 
+            }
+        })
+
+        const submitData = ()=>{
+            if(msgInput.value){
+                store.commit('addMsg')
+            }else{
+                inputIsInvalid.value = true
+                isValid.value = false
             }
         }
-    },
-    methods:{
-        submitData(){
-            this.msgInput? 
-            this.$store.dispatch('form/addMsg'):
-            this.inputIsInvalid = true
-           
-        },
-        confirmError(){
-            this.inputIsInvalid = false;
+        const clearIsValid = ()=>{
+            if(msgInput.value){
+                 isValid.value = true
+            }
         }
-    }   
+        const confirmError = ()=>{
+           inputIsInvalid.value = false;
+        }
+        return{
+            inputIsInvalid,
+            isValid,
+            msgInput,
+            submitData,
+            clearIsValid,
+            confirmError
+        }
+    }
 }
 </script>
 
@@ -62,6 +77,9 @@ export default {
             border: none;
             box-shadow: 0 2px 8px rgb(0 0 0 / 26%);
             padding: 0px;
+            &.invalid{
+                border: 3px solid red;
+            }
         }
         button{
             background-color: rgb(62, 110, 173);
@@ -69,7 +87,7 @@ export default {
             border: none;
             font-size: 1.5rem;
             padding: 10px;
-            &.edit{
+            &.invalid{
                 background-color: rgb(227, 61, 61);
             }
         }

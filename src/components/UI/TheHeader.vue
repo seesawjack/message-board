@@ -14,37 +14,30 @@
 </template>
 
 <script>
+import { ref, reactive ,watch,} from 'vue'
+import { useRoute } from 'vue-router'
 export default {
-    data(){
-        return{
-            page:{
-                board1:'八卦板',
-                board2:'西洽板',
-                board3:'電影板'
-            },
-            pageTitle:'',
-            havePageTitle:false
-        }
+    setup(){
+    const route = useRoute()
+    const page = reactive({
+        board1:'八卦板',
+        board2:'西洽板',
+        board3:'電影板'
+    })
+
+    let pageTitle = ref('')
+    // const havePageTitle = ref('')
+
+    watch(()=>route.params.boardId,function(){
+        pageTitle.value = page[route.params.boardId];
+    }) 
+    return{
+        pageTitle
+    }
+
     },
-    watch:{
-        '$route.params.boardId':function(){
-            this.pageTitle = this.page[this.$route.params.boardId];
-        },
-    },
-    methods:{
-        logIn(){
-            this.$store.commit('logIn')
-        },
-        logOut(){
-            this.$store.commit('logOut')
-        }
-    },
-    computed:{
-        isAuth(){
-            return  this.$store.getters.isAuth
-        }
-    } 
 }
+
 </script>
 
 <style scoped>
