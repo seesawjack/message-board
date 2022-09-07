@@ -30,41 +30,74 @@
 <script>
  import BaseDialog from '../UI/BaseDialog.vue'
  import { ref,computed } from 'vue'
- import { useStore } from 'vuex'
+//  import { useStore } from 'vuex'
+
+ import { useIndexStore } from '@/store/pinia'
+ import { useCardStore } from '@/store/card'
 export default {
     components:{
         BaseDialog
     },
     setup(){
         let isShow = ref(false)
-        const store = useStore()
+        const indexStore = useIndexStore()
+        const cardStore = useCardStore()
         const messages = computed(()=>{
-             return store.state.storedResources
+             return indexStore.storedResources
         })
         const msgEdit = computed({
             get(){
-                return store.state.card.msgEdit
+                return cardStore.msgEdit
             },
             set(value){
-               store.commit('card/storeEditMsg',{content:value})
+               cardStore.storeEditMsg(value)
             }
         })
-        const deleteMsg = (index)=>{
-            store.dispatch('card/deleteMsg',{index:index})
-        }
         const editMsg = (id)=>{
             isShow.value = true
-            store.dispatch('card/editMsg',{id:id})
+            cardStore.editMsg(id)
         }
         const check = ()=>{
             isShow.value = false
             if(confirm('你確定送出訊息嗎？')){
-                store.dispatch('card/sendMsg')
+                cardStore.sendMsg()
             }
         }
+        const deleteMsg = (index)=>{
+            cardStore.deleteMsg(index)
+        }
         const isAuth = computed(()=>{
-            return store.getters.isAuth
+            return indexStore.isAuth
         })
+
+        // const store = useStore()
+        // const messages = computed(()=>{
+        //      return store.state.storedResources
+        // })
+        // const msgEdit = computed({
+        //     get(){
+        //         return store.state.card.msgEdit
+        //     },
+        //     set(value){
+        //        store.commit('card/storeEditMsg',{content:value})
+        //     }
+        // })
+        // const deleteMsg = (index)=>{
+        //     store.dispatch('card/deleteMsg',{index:index})
+        // }
+        // const editMsg = (id)=>{
+        //     isShow.value = true
+        //     store.dispatch('card/editMsg',{id:id})
+        // }
+        // const check = ()=>{
+        //     isShow.value = false
+        //     if(confirm('你確定送出訊息嗎？')){
+        //         store.dispatch('card/sendMsg')
+        //     }
+        // }
+        // const isAuth = computed(()=>{
+        //     return store.getters.isAuth
+        // })
         return{
             isShow,
             messages,

@@ -16,25 +16,36 @@
 <script>
 import { ref, reactive ,watch, computed} from 'vue'
 import { useRoute } from 'vue-router'
-import { useStore } from 'vuex'
+// import { useStore } from 'vuex'
+import { useIndexStore } from '@/store/pinia'
 export default {
     setup(){
     const route = useRoute()
-    const store = useStore()
+    // const store = useStore()
+    const indexStore = useIndexStore()
     const page = reactive({
         board1:'八卦板',
         board2:'西洽板',
         board3:'電影板'
     })
-    const logIn = ()=>{
-        store.commit('logIn')
+    const logIn =()=>{
+        indexStore.logIn()
     }
-    const logOut = ()=>{
-        store.commit('logOut')
+    const logOut =()=>{
+        indexStore.logOut()
     }
-    const isAuth = computed(()=>{
-        return  store.getters.isAuth
+     const isAuth = computed(()=>{
+        return  indexStore.isAuth
     })
+    // const logIn = ()=>{
+    //     store.commit('logIn')
+    // }
+    // const logOut = ()=>{
+    //     store.commit('logOut')
+    // }
+    // const isAuth = computed(()=>{
+    //     return  store.getters.isAuth
+    // })
 
     let pageTitle = ref('')
     // const havePageTitle = ref('')

@@ -19,41 +19,73 @@
 <script>
 import BaseDialog from '../UI/BaseDialog.vue'
 import {ref,computed} from 'vue'
-import { useStore } from 'vuex'
+// import { useStore } from 'vuex'
+// import { useIndexStore } from '@/store/pinia'
+import { useFormStore } from '@/store/form'
+
 export default {
     components:{
         BaseDialog
     },
     setup(){
-        const store = useStore();
+        const formStore = useFormStore()
         let inputIsInvalid = ref(false)
-        let msgInput = ref('')
         let isValid = ref(true)
+        let msgInput = ref('')
+        
         msgInput = computed({
             get(){
-                return store.state.form.msgInput
+                return formStore.msgInput
             },
             set(value){
-               store.commit('form/storeInputMsg',{content:value}) 
+                formStore.storeInputMsg(value)
             }
         })
-
         const submitData = ()=>{
             if(msgInput.value){
-                store.dispatch('form/addMsg')
+                formStore.addMsg()
             }else{
                 inputIsInvalid.value = true
                 isValid.value = false
             }
-        }
+        } 
         const clearIsValid = ()=>{
             if(msgInput.value){
-                 isValid.value = true
+                isValid.value = true
             }
         }
         const confirmError = ()=>{
-           inputIsInvalid.value = false;
+            inputIsInvalid.value = false;
         }
+        // const store = useStore();
+        // let inputIsInvalid = ref(false)
+        // let msgInput = ref('')
+        // let isValid = ref(true)
+        // msgInput = computed({
+        //     get(){
+        //         return store.state.form.msgInput
+        //     },
+        //     set(value){
+        //        store.commit('form/storeInputMsg',{content:value}) 
+        //     }
+        // })
+
+        // const submitData = ()=>{
+        //     if(msgInput.value){
+        //         store.dispatch('form/addMsg')
+        //     }else{
+        //         inputIsInvalid.value = true
+        //         isValid.value = false
+        //     }
+        // }
+        // const clearIsValid = ()=>{
+        //     if(msgInput.value){
+        //          isValid.value = true
+        //     }
+        // }
+        // const confirmError = ()=>{
+        //    inputIsInvalid.value = false;
+        // }
         return{
             inputIsInvalid,
             isValid,
