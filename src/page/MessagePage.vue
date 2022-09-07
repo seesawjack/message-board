@@ -9,11 +9,11 @@
 <script>
 import MessageForm from '../components/Message/MessageForm.vue'
 import MessageCard from '../components/Message/MessageCard.vue'
-
-export default {
+export default{
     components:{
         MessageForm,
-        MessageCard,
+        MessageCard
     }
 }
+
 </script>

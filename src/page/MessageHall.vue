@@ -12,14 +12,21 @@
 </template>
 
 <script>
+import { computed } from 'vue'
+import { useStore } from 'vuex'
 import HallCard from '../components/Message/HallCard.vue'
+
 export default {
     components:{
         HallCard
     },
-    computed:{
-        messageGroup(){
-            return this.$store.state.allMessage
+    setup(){
+        const store = useStore()
+        const messageGroup = computed(()=>{
+            return store.state.allMessage
+        })
+        return{
+           messageGroup 
         }
     }
 }
