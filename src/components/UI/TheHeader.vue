@@ -1,34 +1,31 @@
 <template>
     <header>
-        <h1>{{pageTitle? pageTitle :'留言板'}}</h1>
-        <div class="btn" v-if="havePageTitle">
+        <h1>{{pageTitle? pageTitle:'留言板'}}</h1>
+        <!-- <div class="btn" v-if="havePageTitle">
             <router-link  to="../">
                 <div class="btn-style">◀</div>
             </router-link>
-        </div>
-       
+        </div> -->
     </header>
 </template>
 
-<script>
-export default {
-    data(){
-        return{
-            page:{
-                board1:'八卦板',
-                board2:'西洽板',
-                board3:'電影板'
-            },
-            pageTitle:'',
-            havePageTitle:false
-        }
-    },
-    watch:{
-        '$route.params.boardId':function(){
-            this.pageTitle = this.page[this.$route.params.boardId];
-        },
-    } 
-}
+<script setup>
+import { ref, reactive ,watch,} from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const page = reactive({
+    board1:'八卦板',
+    board2:'西洽板',
+    board3:'電影板'
+})
+
+let pageTitle = ref('')
+// const havePageTitle = ref('')
+
+watch(()=>route.params.boardId,function(){
+    pageTitle.value = page[route.params.boardId];
+}) 
 </script>
 
 <style scoped>

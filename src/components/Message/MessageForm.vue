@@ -18,36 +18,39 @@
 
 <script>
 import BaseDialog from '../UI/BaseDialog.vue'
+import {ref,computed} from 'vue'
+import { useStore } from 'vuex'
 export default {
     components:{
         BaseDialog
     },
-    data(){
-       return{
-        inputIsInvalid:false,
-       } 
-    },
-    computed:{
-        msgInput:{
+    setup(){
+        const store = useStore();
+        let inputIsInvalid = ref(false)
+        let msgInput = ref('')
+        msgInput = computed({
             get(){
-                return this.$store.state.msgInput
+                return store.state.msgInput
             },
             set(value){
-                this.$store.commit('storeInputMsg',{content:value}) 
+               store.commit('storeInputMsg',{content:value}) 
             }
+        })
+        const submitData = ()=>{
+            msgInput.value? 
+            store.commit('addMsg'):
+            inputIsInvalid.value = true
         }
-    },
-    methods:{
-        submitData(){
-            this.msgInput? 
-            this.$store.commit('addMsg'):
-            this.inputIsInvalid = true
-           
-        },
-        confirmError(){
-            this.inputIsInvalid = false;
+        const confirmError = ()=>{
+           inputIsInvalid.value = false;
         }
-    }   
+        return{
+            inputIsInvalid,
+            msgInput,
+            submitData,
+            confirmError
+        }
+    }
 }
 </script>
 

@@ -9,15 +9,18 @@
 </template>
 
 <script>
-
+import {computed} from 'vue'
 export default {
     props:['groupName','altName','imgLink','id','color'],
-    computed:{
-        boardLink(){
-        return {
-            name:'board',
-            params:{boardId:this.id}
+    setup(props){
+        const boardLink = computed(()=>{
+            return {
+                name:'board',
+                params:{boardId:props.id}
             }
+        })
+        return{
+            boardLink
         }
     }
 }

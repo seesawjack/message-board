@@ -29,41 +29,46 @@
 
 <script>
  import BaseDialog from '../UI/BaseDialog.vue'
+ import {ref,computed} from 'vue'
+ import { useStore } from 'vuex'
 export default {
     components:{
         BaseDialog
     },
-    data(){
-        return{
-            isShow:false,   
-        }
-    },
-    computed:{
-        messages(){
-            return this.$store.state.storedResources
-        },
-        msgEdit:{
+    setup(){
+        let isShow = ref(false)
+        const store = useStore()
+        const messages = computed(()=>{
+             return store.state.storedResources
+        })
+        const msgEdit = computed({
             get(){
-                return this.$store.state.msgEdit
+                return store.state.msgEdit
             },
             set(value){
-                this.$store.commit('storeEditMsg',{content:value})
+               store.commit('storeEditMsg',{content:value})
+            }
+        })
+        const deleteMsg = (index)=>{
+            store.commit('deleteMsg',{index:index})
+        }
+        const editMsg = (id)=>{
+            isShow.value = true
+            store.commit('editMsg',{id:id})
+        }
+        const check = ()=>{
+            isShow.value = false
+            if(confirm('你確定送出訊息嗎？')){
+                store.commit('sendMsg')
             }
         }
-    },
-    methods:{
-        deleteMsg(index){
-            this.$store.commit('deleteMsg',{index:index})
-        },
-        editMsg(id){
-            this.isShow = true
-            this.$store.commit('editMsg',{id:id})
-        },
-        check(){
-            this.isShow = false
-            if(confirm('你確定送出訊息嗎？')){
-                this.$store.commit('sendMsg')
-            }
+        return{
+            isShow,
+            messages,
+            msgEdit,
+            deleteMsg,
+            editMsg,
+            check
         }
     }
 }
