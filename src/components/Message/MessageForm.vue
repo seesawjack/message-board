@@ -11,8 +11,8 @@
     </base-dialog>
     <!-- 表單輸入 -->
     <form @submit.prevent="submitData()">
-		<input type="text" v-model="msgInput">
-		<button>輸入留言</button>
+		<input type="text" v-model="msgInput" :class="{'invalid':!isValid}" @blur="clearIsValid">
+		<button :class="{'invalid':!isValid}" @blur="clearIsValid">輸入留言</button>
 	</form>
 </template>
 
@@ -28,6 +28,7 @@ export default {
         const store = useStore();
         let inputIsInvalid = ref(false)
         let msgInput = ref('')
+        let isValid = ref(true)
         msgInput = computed({
             get(){
                 return store.state.msgInput
@@ -36,18 +37,29 @@ export default {
                store.commit('storeInputMsg',{content:value}) 
             }
         })
+
         const submitData = ()=>{
-            msgInput.value? 
-            store.commit('addMsg'):
-            inputIsInvalid.value = true
+            if(msgInput.value){
+                store.commit('addMsg')
+            }else{
+                inputIsInvalid.value = true
+                isValid.value = false
+            }
+        }
+        const clearIsValid = ()=>{
+            if(msgInput.value){
+                 isValid.value = true
+            }
         }
         const confirmError = ()=>{
            inputIsInvalid.value = false;
         }
         return{
             inputIsInvalid,
+            isValid,
             msgInput,
             submitData,
+            clearIsValid,
             confirmError
         }
     }
@@ -65,6 +77,9 @@ export default {
             border: none;
             box-shadow: 0 2px 8px rgb(0 0 0 / 26%);
             padding: 0px;
+            &.invalid{
+                border: 3px solid red;
+            }
         }
         button{
             background-color: rgb(62, 110, 173);
@@ -72,7 +87,7 @@ export default {
             border: none;
             font-size: 1.5rem;
             padding: 10px;
-            &.edit{
+            &.invalid{
                 background-color: rgb(227, 61, 61);
             }
         }
