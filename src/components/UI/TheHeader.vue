@@ -20,45 +20,36 @@ import { useRoute } from 'vue-router'
 import { useIndexStore } from '@/store/pinia'
 export default {
     setup(){
-    const route = useRoute()
-    // const store = useStore()
-    const indexStore = useIndexStore()
-    const page = reactive({
-        board1:'八卦板',
-        board2:'西洽板',
-        board3:'電影板'
-    })
-    const logIn =()=>{
-        indexStore.logIn()
-    }
-    const logOut =()=>{
-        indexStore.logOut()
-    }
-     const isAuth = computed(()=>{
-        return  indexStore.isAuth
-    })
-    // const logIn = ()=>{
-    //     store.commit('logIn')
-    // }
-    // const logOut = ()=>{
-    //     store.commit('logOut')
-    // }
-    // const isAuth = computed(()=>{
-    //     return  store.getters.isAuth
-    // })
+        const route = useRoute()
+        // const store = useStore()
+        const indexStore = useIndexStore()
+        const page = reactive({
+            board1:'八卦板',
+            board2:'西洽板',
+            board3:'電影板'
+        })
+        const logIn =()=>{
+            indexStore.logIn()
+        }
+        const logOut =()=>{
+            indexStore.logOut()
+        }
+        const isAuth = computed(()=>{
+            return  indexStore.isAuth
+        })
+        
+        const pageTitle = ref('')
 
-    let pageTitle = ref('')
-    // const havePageTitle = ref('')
-
-    watch(()=>route.params.boardId,function(){
-        pageTitle.value = page[route.params.boardId];
-    }) 
-    return{
-        pageTitle,
-        logIn,
-        logOut,
-        isAuth
-    }
+        watch(()=>route.params.boardId,function(){
+            pageTitle.value = page[route.params.boardId];
+        }) 
+        
+        return{
+            pageTitle,
+            logIn,
+            logOut,
+            isAuth
+        }
     },
 }
 

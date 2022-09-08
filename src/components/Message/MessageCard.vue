@@ -39,7 +39,7 @@ export default {
         BaseDialog
     },
     setup(){
-        let isShow = ref(false)
+        const isShow = ref(false)
         const indexStore = useIndexStore()
         const cardStore = useCardStore()
         const messages = computed(()=>{
@@ -69,35 +69,6 @@ export default {
         const isAuth = computed(()=>{
             return indexStore.isAuth
         })
-
-        // const store = useStore()
-        // const messages = computed(()=>{
-        //      return store.state.storedResources
-        // })
-        // const msgEdit = computed({
-        //     get(){
-        //         return store.state.card.msgEdit
-        //     },
-        //     set(value){
-        //        store.commit('card/storeEditMsg',{content:value})
-        //     }
-        // })
-        // const deleteMsg = (index)=>{
-        //     store.dispatch('card/deleteMsg',{index:index})
-        // }
-        // const editMsg = (id)=>{
-        //     isShow.value = true
-        //     store.dispatch('card/editMsg',{id:id})
-        // }
-        // const check = ()=>{
-        //     isShow.value = false
-        //     if(confirm('你確定送出訊息嗎？')){
-        //         store.dispatch('card/sendMsg')
-        //     }
-        // }
-        // const isAuth = computed(()=>{
-        //     return store.getters.isAuth
-        // })
         return{
             isShow,
             messages,

@@ -29,11 +29,10 @@ export default {
     },
     setup(){
         const formStore = useFormStore()
-        let inputIsInvalid = ref(false)
-        let isValid = ref(true)
-        let msgInput = ref('')
-        
-        msgInput = computed({
+        const inputIsInvalid = ref(false)
+        const isValid = ref(true)
+
+        const msgInput = computed({
             get(){
                 return formStore.msgInput
             },
@@ -54,40 +53,10 @@ export default {
             if(msgInput.value){
                 isValid.value = true
             }
-            console.log(isValid.value)
         }
         const confirmError = ()=>{
             inputIsInvalid.value = false;
         }
-        // const store = useStore();
-        // let inputIsInvalid = ref(false)
-        // let msgInput = ref('')
-        // let isValid = ref(true)
-        // msgInput = computed({
-        //     get(){
-        //         return store.state.form.msgInput
-        //     },
-        //     set(value){
-        //        store.commit('form/storeInputMsg',{content:value}) 
-        //     }
-        // })
-
-        // const submitData = ()=>{
-        //     if(msgInput.value){
-        //         store.dispatch('form/addMsg')
-        //     }else{
-        //         inputIsInvalid.value = true
-        //         isValid.value = false
-        //     }
-        // }
-        // const clearIsValid = ()=>{
-        //     if(msgInput.value){
-        //          isValid.value = true
-        //     }
-        // }
-        // const confirmError = ()=>{
-        //    inputIsInvalid.value = false;
-        // }
         return{
             inputIsInvalid,
             isValid,
