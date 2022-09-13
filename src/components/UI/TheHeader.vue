@@ -19,7 +19,7 @@ import { useRoute } from 'vue-router'
 import { useIndexStore } from '@/store/index.js'
 export default {
     setup(){
-        const route = useRoute()
+        const router = useRoute()
         // const store = useStore()
         const indexStore = useIndexStore()
         const page = reactive({
@@ -39,8 +39,8 @@ export default {
         
         const pageTitle = ref('')
 
-        watch(()=>route.params.boardId,function(){
-            pageTitle.value = page[route.params.boardId];
+        watch(()=>router.params.boardId,function(){
+            pageTitle.value = page[router.params.boardId];
         }) 
         
         return{

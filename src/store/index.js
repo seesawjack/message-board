@@ -40,6 +40,9 @@ export const useIndexStore = defineStore({
     getters:{
         isAuthIn(state){
             return state.isAuth 
+        },
+        resources(state){
+            return state.storedResources
         }
     },
     actions:{

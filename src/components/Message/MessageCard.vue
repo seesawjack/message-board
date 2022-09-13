@@ -22,23 +22,28 @@
     </li>
     <div class="return-btn" v-if="messages.length === 0">
         <h2>此處沒有留言...</h2>
-        <router-link to="../">返回</router-link>
+        <button @click="backBtn">返回</button>
     </div>
         
 </template>
 
 <script>
- import { ref,computed } from 'vue'
- import { useIndexStore } from '@/store/index.js'
- import { useCardStore } from '@/store/modules/card/index.js'
+import { ref,computed } from 'vue'
+import { useIndexStore } from '@/store/index.js'
+import { useCardStore } from '@/store/modules/card/index.js'
+import { useFormStore } from '@/store/modules/form/index.js'
+import { useRouter } from'vue-router';
 export default {
     setup(){
+        const router = useRouter()
         const isShow = ref(false)
         const indexStore = useIndexStore()
         const cardStore = useCardStore()
+        const formStore = useFormStore()
         const messages = computed(()=>{
-             return indexStore.storedResources
+             return indexStore.resources
         })
+
         const msgEdit = computed({
             get(){
                 return cardStore.msgEdit
@@ -63,6 +68,13 @@ export default {
         const isAuth = computed(()=>{
             return indexStore.isAuthIn
         })
+        const backBtn = function(){
+           if(formStore.isMsg){
+            alert('你還有訊息未送出');
+            return;
+           }
+            router.push('/')
+        }
         return{
             isShow,
             messages,
@@ -70,7 +82,8 @@ export default {
             deleteMsg,
             editMsg,
             check,
-            isAuth
+            isAuth,
+            backBtn
         }
     }
 }
@@ -107,12 +120,14 @@ h2{
     display: flex;
     flex-direction: column;
     align-items: center;
-    a{
+    button{
         color: #fff;
         text-decoration: none;
         background-color: rgb(38, 152, 152);
         padding: 10px 40px;
         border-radius: 25px;
+        border: none;
+        cursor: pointer;
     }
     
 }

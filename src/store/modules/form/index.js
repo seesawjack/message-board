@@ -13,6 +13,11 @@ export const useFormStore = defineStore({
             pageId:router.currentRoute
         }
     },
+    getters:{
+        isMsg(state){
+            return state.msgInput
+        }
+    },
     actions:{
         storeInputMsg(value){
           this.msgInput = value
