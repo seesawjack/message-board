@@ -1,14 +1,7 @@
-import {createStore} from 'vuex';
+import { defineStore } from 'pinia'
 
-import formModules from './modules/form/index.js';
-import cardModules from './modules/card/index.js'
-
-
-const store =createStore({
-    modules:{
-        form:formModules,
-        card:cardModules
-    },
+export const useIndexStore = defineStore({
+    id:'all',
     state(){
         return{
             storedResources:[],
@@ -44,20 +37,17 @@ const store =createStore({
             isAuth:false
         }
     },
-    mutations:{
-        logIn(state){
-            state.isAuth = true
-        },
-        logOut(state){
-            state.isAuth = false
+    getters:{
+        isAuthIn(state){
+            return state.isAuth 
         }
     },
-    getters:{
-        isAuth(state){
-            return state.isAuth
+    actions:{
+        logIn(){
+            this.isAuth = true
+        },
+        logOut(){
+            this.isAuth = false
         }
     }
-})
-
-export default store;
-
+  })

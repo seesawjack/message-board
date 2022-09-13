@@ -6,16 +6,15 @@
         :id="message.id"
         :alt-name="message.name.english"
         :group-name="message.name.chinese"
-        :color="message.color"
+        :img="message.img"
         ></hall-card>
     </ul>
 </template>
 
 <script>
-import { computed } from 'vue'
-// import { useStore } from 'vuex'
-import { useIndexStore } from '@/store/pinia'
 import HallCard from '../components/Message/HallCard.vue'
+import { computed } from 'vue'
+import { useIndexStore } from '@/store/index.js'
 
 export default {
     components:{

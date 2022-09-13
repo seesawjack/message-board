@@ -1,39 +1,33 @@
-import router from '../../../router.js'
+import router from '@/router.js'
 import { uuid } from 'vue-uuid';
-
+import { defineStore } from 'pinia'
+import { useIndexStore } from '@/store/index.js'
 var moment = require('moment');
 moment.locale('zh-tw');
 
-export default {
-    namespaced:true,
+export const useFormStore = defineStore({
+    id:'form',
     state(){
         return{
             msgInput:'',
             pageId:router.currentRoute
         }
     },
-    mutations:{
-        storeInputMsg(state,payload){
-            state.msgInput = payload.content
+    actions:{
+        storeInputMsg(value){
+          this.msgInput = value
         },
-        addMsg(state,payload){
+        addMsg(){
+            const indexStore = useIndexStore()
             const time = moment().format('LLLL')
             const newResource = {
                 id:uuid.v1(),
-                pageId:state.pageId.params.boardId,
+                pageId:this.pageId.params.boardId,
                 time:time,
-                content:state.msgInput,
+                content:this.msgInput,
             }
-            payload.storedResources.unshift(newResource);
-            state.msgInput = '';
-        }
-    },
-    actions:{
-        storeInputMsg(context,payload){
-            context.commit('storeInputMsg',payload.content)
-        },
-        addMsg({ commit, rootState }){
-            commit('addMsg',{storedResources:rootState.storedResources})
+            indexStore.storedResources.unshift(newResource);
+            this.msgInput = '';
         }
     }
-}
+  })

@@ -1,49 +1,33 @@
-
-export default{
-    namespaced:true,
+import { defineStore } from 'pinia';
+import { useIndexStore } from '@/store/index.js';
+export const useCardStore = defineStore({
+    id:'card',
     state(){
         return{
             msgEdit:'',
             editId:'',
         }
     },
-    mutations:{
-        storeEditMsg(state,payload){
-            state.msgEdit = payload.content
+    actions:{
+        storeEditMsg(value){
+            this.msgEdit = value
         },
-        editMsg(state,payload){
-            state.editId = payload.id
-            state.msgEdit = payload.storedResources.find(item=>item.id === payload.id.id).content
-            console.log(state.msgEdit)
+        editMsg(id){
+            const indexStore = useIndexStore()
+            this.editId = id
+            this.msgEdit = indexStore.storedResources.find(item=>item.id === id).content
         },
-        sendMsg(state,payload){
-            payload.storedResources.filter(item=>{
-                if(item.id === state.editId.id){
-                    item.content = state.msgEdit
+        sendMsg(){
+            const indexStore = useIndexStore()
+            indexStore.storedResources.filter(item=>{
+                if(item.id === this.editId){
+                    item.content = this.msgEdit
                 }
             })
         },
-        deleteMsg(_,payload){
-            payload.storedResources.splice(payload.index,1)
-        },
-    },
-    actions:{
-        editMsg({commit,rootState},id){
-            commit('editMsg',{
-                id:id,
-                storedResources:rootState.storedResources
-            })
-        },
-        sendMsg({commit,rootState},id){
-            commit('sendMsg',{
-                id:id,
-                storedResources:rootState.storedResources
-            })
-        },
-        deleteMsg({commit,rootState}){
-            commit('deleteMsg',{
-                storedResources:rootState.storedResources
-            })
+        deleteMsg(index){
+            const indexStore = useIndexStore()
+            indexStore.storedResources.splice(index,1)
         }
     }
-}
+  })

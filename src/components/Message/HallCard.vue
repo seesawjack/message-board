@@ -1,7 +1,7 @@
 <template>
     <li>
         <div class="message-group">
-            <div :class="`color ${color}`"></div>
+            <img :src="require(`@/assets/images/${img}`)" alt="">
             <p>{{groupName}}</p>
             <router-link :to="boardLink">點我進入</router-link>
         </div>
@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import {computed} from 'vue'
+import { computed } from 'vue'
 export default {
-    props:['groupName','altName','imgLink','id','color'],
+    props:['groupName','altName','id','img'],
     setup(props){
         const boardLink = computed(()=>{
             return {

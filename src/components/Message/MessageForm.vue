@@ -17,16 +17,10 @@
 </template>
 
 <script>
-import BaseDialog from '../UI/BaseDialog.vue'
-import {ref,computed} from 'vue'
-// import { useStore } from 'vuex'
-// import { useIndexStore } from '@/store/pinia'
-import { useFormStore } from '@/store/form'
+import { ref,computed } from 'vue'
+import { useFormStore } from '@/store/modules/form/index.js'
 
 export default {
-    components:{
-        BaseDialog
-    },
     setup(){
         const formStore = useFormStore()
         const inputIsInvalid = ref(false)

@@ -16,8 +16,7 @@
 <script>
 import { ref, reactive ,watch, computed} from 'vue'
 import { useRoute } from 'vue-router'
-// import { useStore } from 'vuex'
-import { useIndexStore } from '@/store/pinia'
+import { useIndexStore } from '@/store/index.js'
 export default {
     setup(){
         const route = useRoute()

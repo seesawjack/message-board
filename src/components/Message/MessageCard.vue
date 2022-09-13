@@ -21,23 +21,17 @@
         <button class="delete-btn" @click="deleteMsg(index)">刪除</button>
     </li>
     <div class="return-btn" v-if="messages.length === 0">
-        <h2 >此處沒有留言...</h2>
+        <h2>此處沒有留言...</h2>
         <router-link to="../">返回</router-link>
     </div>
         
 </template>
 
 <script>
- import BaseDialog from '../UI/BaseDialog.vue'
  import { ref,computed } from 'vue'
-//  import { useStore } from 'vuex'
-
- import { useIndexStore } from '@/store/pinia'
- import { useCardStore } from '@/store/card'
+ import { useIndexStore } from '@/store/index.js'
+ import { useCardStore } from '@/store/modules/card/index.js'
 export default {
-    components:{
-        BaseDialog
-    },
     setup(){
         const isShow = ref(false)
         const indexStore = useIndexStore()
@@ -67,7 +61,7 @@ export default {
             cardStore.deleteMsg(index)
         }
         const isAuth = computed(()=>{
-            return indexStore.isAuth
+            return indexStore.isAuthIn
         })
         return{
             isShow,

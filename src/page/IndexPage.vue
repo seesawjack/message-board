@@ -13,7 +13,7 @@ h1{
 }
 .center-link{
     display: flex;
-    justify-content: center;
+    justify-content: center;   
 }
 a{
     color: #fff;
