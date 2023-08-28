@@ -1,24 +1,15 @@
-# message-board
+# 留言板
 
-## Project setup
-```
-npm install
-```
+用途：練習專案，從初始化 vue 專案到完成一份具有 CRUD 功能的留言板
+整體時間：2022/08/01 ~ 2022/08/16
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## 專案架構
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- 拆分成「頁面功能」及「 UI 畫面」兩種架構
 
-### Lints and fixes files
-```
-npm run lint
-```
+## 使用技術
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- 前端框架：vue3
+- 狀態管理：vuex
+- 路由管理：vue-router 
+- 資料庫：firebase
